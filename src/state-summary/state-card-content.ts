@@ -11,14 +11,11 @@ import "./state-card-configurator";
 import "./state-card-cover";
 import "./state-card-display";
 import "./state-card-event";
-import "./state-card-humidifier";
 import "./state-card-input_button";
 import "./state-card-input_number";
 import "./state-card-input_select";
 import "./state-card-input_text";
-import "./state-card-lawn_mower";
 import "./state-card-lock";
-import "./state-card-media_player";
 import "./state-card-number";
 import "./state-card-scene";
 import "./state-card-script";
@@ -27,8 +24,6 @@ import "./state-card-text";
 import "./state-card-timer";
 import "./state-card-toggle";
 import "./state-card-update";
-import "./state-card-vacuum";
-import "./state-card-water_heater";
 
 @customElement("state-card-content")
 class StateCardContent extends LitElement {

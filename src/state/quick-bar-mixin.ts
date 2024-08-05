@@ -8,9 +8,7 @@ import {
 } from "../dialogs/quick-bar/show-dialog-quick-bar";
 import { Constructor, HomeAssistant } from "../types";
 import { storeState } from "../util/ha-pref-storage";
-import { showToast } from "../util/toast";
 import { HassElement } from "./hass-element";
-import { extractSearchParamsObject } from "../common/url/search-params";
 
 declare global {
   interface HASSDomEvents {
@@ -110,37 +108,6 @@ export default <T extends Constructor<HassElement>>(superClass: T) =>
           }
         }
       }
-
-      const myPanel = await import("../panels/my/ha-panel-my");
-
-      for (const [slug, redirect] of Object.entries(
-        myPanel.getMyRedirects(isHassio)
-      )) {
-        if (targetPath.startsWith(redirect.redirect)) {
-          myParams.append("redirect", slug);
-          if (redirect.params) {
-            const params = extractSearchParamsObject();
-            for (const key of Object.keys(redirect.params)) {
-              if (key in params) {
-                myParams.append(key, params[key]);
-              }
-            }
-          }
-          window.open(
-            `https://my.home-assistant.io/create-link/?${myParams.toString()}`,
-            "_blank"
-          );
-          return;
-        }
-      }
-      showToast(this, {
-        message: this.hass.localize(
-          "ui.notification_toast.no_matching_link_found",
-          {
-            path: targetPath,
-          }
-        ),
-      });
     }
 
     private _canShowQuickBar(e: KeyboardEvent) {

@@ -89,7 +89,8 @@ export const derivedStyles = {
   // https://github.com/material-components/material-web/blob/master/docs/theming.md
   "mdc-theme-primary": "var(--primary-color)",
   "mdc-theme-secondary": "var(--accent-color)",
-  "mdc-theme-background": "var(--primary-background-color)",
+  // "mdc-theme-background": "var(--primary-background-color)",
+  "mdc-theme-background": "#316834",
   "mdc-theme-surface": "var(--card-background-color)",
   "mdc-theme-on-primary": "var(--text-primary-color)",
   "mdc-theme-on-secondary": "var(--text-primary-color)",

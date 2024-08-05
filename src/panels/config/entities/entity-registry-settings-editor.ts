@@ -91,7 +91,6 @@ import {
   showAlertDialog,
   showConfirmationDialog,
 } from "../../../dialogs/generic/show-dialog-box";
-import { showVoiceAssistantsView } from "../../../dialogs/more-info/components/voice/show-view-voice-assistants";
 import { showMoreInfoDialog } from "../../../dialogs/more-info/show-ha-more-info-dialog";
 import { haStyle } from "../../../resources/styles";
 import type { HomeAssistant } from "../../../types";
@@ -882,31 +881,6 @@ export class EntityRegistrySettingsEditor extends LitElement {
             </ha-list-item>
           `
         : ""}
-
-      <ha-list-item
-        class="menu-item"
-        twoline
-        hasMeta
-        .disabled=${this.disabled}
-        @click=${this._handleVoiceAssistantsClicked}
-      >
-        <span
-          >${this.hass.localize(
-            "ui.dialogs.entity_registry.editor.voice_assistants"
-          )}</span
-        >
-        <span slot="secondary">
-          ${this.entry.aliases.length
-            ? [...this.entry.aliases]
-                .sort((a, b) => stringCompare(a, b, this.hass.locale.language))
-                .join(", ")
-            : this.hass.localize(
-                "ui.dialogs.entity_registry.editor.no_aliases"
-              )}
-        </span>
-        <ha-icon-next slot="meta"></ha-icon-next>
-      </ha-list-item>
-
       ${this._disabledBy &&
       this._disabledBy !== "user" &&
       this._disabledBy !== "integration"
@@ -1452,13 +1426,6 @@ export class EntityRegistrySettingsEditor extends LitElement {
         await updateDeviceRegistryEntry(this.hass, this._device!.id, updates);
       },
     });
-  }
-
-  private _handleVoiceAssistantsClicked() {
-    showVoiceAssistantsView(
-      this,
-      this.hass.localize("ui.dialogs.entity_registry.editor.voice_assistants")
-    );
   }
 
   private async _showOptionsFlow() {

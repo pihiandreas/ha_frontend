@@ -32,9 +32,7 @@ import {
 import { UnsubscribeFunc } from "home-assistant-js-websocket";
 import { PropertyValues } from "lit";
 import { customElement, property, state } from "lit/decorators";
-import { isComponentLoaded } from "../../common/config/is_component_loaded";
 import { listenMediaQuery } from "../../common/dom/media_query";
-import { CloudStatus, fetchCloudStatus } from "../../data/cloud";
 import {
   floorsContext,
   fullEntitiesContext,
@@ -55,7 +53,6 @@ import { subscribeFloorRegistry } from "../../data/floor_registry";
 declare global {
   // for fire event
   interface HASSDomEvents {
-    "ha-refresh-cloud-status": undefined;
     "ha-refresh-supervisor": undefined;
   }
 }
@@ -412,17 +409,9 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
   protected routerOptions: RouterOptions = {
     defaultPage: "dashboard",
     routes: {
-      analytics: {
-        tag: "ha-config-section-analytics",
-        load: () => import("./core/ha-config-section-analytics"),
-      },
       areas: {
         tag: "ha-config-areas",
         load: () => import("./areas/ha-config-areas"),
-      },
-      "voice-assistants": {
-        tag: "ha-config-voice-assistants",
-        load: () => import("./voice-assistants/ha-config-voice-assistants"),
       },
       automation: {
         tag: "ha-config-automation",
@@ -439,10 +428,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
       tags: {
         tag: "ha-config-tags",
         load: () => import("./tags/ha-config-tags"),
-      },
-      cloud: {
-        tag: "ha-config-cloud",
-        load: () => import("./cloud/ha-config-cloud"),
       },
       devices: {
         tag: "ha-config-devices",
@@ -470,10 +455,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
         tag: "ha-config-entities",
         load: () => import("./entities/ha-config-entities"),
       },
-      energy: {
-        tag: "ha-config-energy",
-        load: () => import("./energy/ha-config-energy"),
-      },
       hardware: {
         tag: "ha-config-hardware",
         load: () => import("./hardware/ha-config-hardware"),
@@ -493,10 +474,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
       network: {
         tag: "ha-config-section-network",
         load: () => import("./network/ha-config-section-network"),
-      },
-      person: {
-        tag: "ha-config-person",
-        load: () => import("./person/ha-config-person"),
       },
       script: {
         tag: "ha-config-script",
@@ -534,38 +511,10 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
         tag: "ha-config-section-general",
         load: () => import("./core/ha-config-section-general"),
       },
-      zha: {
-        tag: "zha-config-dashboard-router",
-        load: () =>
-          import(
-            "./integrations/integration-panels/zha/zha-config-dashboard-router"
-          ),
-      },
       mqtt: {
         tag: "mqtt-config-panel",
         load: () =>
           import("./integrations/integration-panels/mqtt/mqtt-config-panel"),
-      },
-      zwave_js: {
-        tag: "zwave_js-config-router",
-        load: () =>
-          import(
-            "./integrations/integration-panels/zwave_js/zwave_js-config-router"
-          ),
-      },
-      matter: {
-        tag: "matter-config-panel",
-        load: () =>
-          import(
-            "./integrations/integration-panels/matter/matter-config-panel"
-          ),
-      },
-      thread: {
-        tag: "thread-config-panel",
-        load: () =>
-          import(
-            "./integrations/integration-panels/thread/thread-config-panel"
-          ),
       },
       application_credentials: {
         tag: "ha-config-application-credentials",
@@ -578,8 +527,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
   @state() private _wideSidebar = false;
 
   @state() private _wide = false;
-
-  @state() private _cloudStatus?: CloudStatus;
 
   private _listeners: Array<() => void> = [];
 
@@ -610,18 +557,7 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
     super.firstUpdated(changedProps);
     this.hass.loadBackendTranslation("title");
     this.hass.loadBackendTranslation("services");
-    if (isComponentLoaded(this.hass, "cloud")) {
-      this._updateCloudStatus();
-      this.addEventListener("connection-status", (ev) => {
-        if (ev.detail === "connected") {
-          this._updateCloudStatus();
-        }
-      });
-    }
 
-    this.addEventListener("ha-refresh-cloud-status", () =>
-      this._updateCloudStatus()
-    );
     this.style.setProperty(
       "--app-header-background-color",
       "var(--sidebar-background-color)"
@@ -645,22 +581,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
     el.showAdvanced = Boolean(this.hass.userData?.showAdvanced);
     el.isWide = isWide;
     el.narrow = this.narrow;
-    el.cloudStatus = this._cloudStatus;
-  }
-
-  private async _updateCloudStatus() {
-    this._cloudStatus = await fetchCloudStatus(this.hass);
-
-    if (
-      // Relayer connecting
-      this._cloudStatus.cloud === "connecting" ||
-      // Remote connecting
-      (this._cloudStatus.logged_in &&
-        this._cloudStatus.prefs.remote_enabled &&
-        !this._cloudStatus.remote_connected)
-    ) {
-      setTimeout(() => this._updateCloudStatus(), 5000);
-    }
   }
 }
 

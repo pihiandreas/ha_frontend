@@ -19,7 +19,6 @@ import {
 
 const CACHE_URL_PATHS = ["lovelace", "developer-tools"];
 const COMPONENTS = {
-  energy: () => import("../panels/energy/ha-panel-energy"),
   calendar: () => import("../panels/calendar/ha-panel-calendar"),
   config: () => import("../panels/config/ha-panel-config"),
   custom: () => import("../panels/custom/ha-panel-custom"),
@@ -31,11 +30,8 @@ const COMPONENTS = {
   logbook: () => import("../panels/logbook/ha-panel-logbook"),
   mailbox: () => import("../panels/mailbox/ha-panel-mailbox"),
   map: () => import("../panels/map/ha-panel-map"),
-  my: () => import("../panels/my/ha-panel-my"),
   profile: () => import("../panels/profile/ha-panel-profile"),
   todo: () => import("../panels/todo/ha-panel-todo"),
-  "media-browser": () =>
-    import("../panels/media-browser/ha-panel-media-browser"),
 };
 
 @customElement("partial-panel-resolver")

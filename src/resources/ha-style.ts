@@ -43,7 +43,8 @@ const mainStyles = css`
 
     /* backgrounds */
     --card-background-color: #ffffff;
-    --primary-background-color: #fafafa;
+    /* --primary-background-color: #fafafa; */
+    --primary-background-color: #316834;
     --secondary-background-color: #e5e5e5; /* behind the cards on state */
     --clear-background-color: #ffffff;
 

@@ -171,6 +171,11 @@ class HaPanelDevState extends LitElement {
                 .label=${this.hass.localize("ui.common.refresh")}
                 .path=${mdiRefresh}
               ></ha-icon-button>
+              <ha-icon-button
+                @click=${this._updateEntity}
+                .label=${this.hass.localize("ui.common.refresh")}
+                .path=${mdiRefresh}
+              ></ha-icon-button>
             </div>
           </div>
           <div class="info">

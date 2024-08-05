@@ -9,7 +9,6 @@ import "../../../components/ha-card";
 import "../../../components/ha-icon-button";
 import "../../../components/ha-navigation-list";
 import { BackupContent, fetchBackupInfo } from "../../../data/backup";
-import { CloudStatus, fetchCloudStatus } from "../../../data/cloud";
 import { BOARD_NAMES, HardwareInfo } from "../../../data/hardware";
 import { fetchHassioBackups, HassioBackup } from "../../../data/hassio/backup";
 import {
@@ -32,8 +31,6 @@ class HaConfigSystemNavigation extends LitElement {
   @property({ type: Boolean, reflect: true }) public narrow = false;
 
   @property({ type: Boolean }) public isWide = false;
-
-  @property({ attribute: false }) public cloudStatus?: CloudStatus;
 
   @property({ type: Boolean }) public showAdvanced = false;
 
@@ -197,13 +194,6 @@ class HaConfigSystemNavigation extends LitElement {
   }
 
   private async _fetchNetworkStatus() {
-    if (isComponentLoaded(this.hass, "cloud")) {
-      const cloudStatus = await fetchCloudStatus(this.hass);
-      if (cloudStatus.logged_in) {
-        this._externalAccess = true;
-        return;
-      }
-    }
     this._externalAccess = this.hass.config.external_url !== null;
   }
 
