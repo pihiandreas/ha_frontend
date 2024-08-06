@@ -70,7 +70,7 @@
     </div>
     <home-assistant></home-assistant>
     <%= renderTemplate("_js_base.html.template") %>
-    <%= renderTemplate("_preload_roboto.html.template") %>
+    <%= renderTemplate("_preload_fonts.html.template") %>
     <script <% if (!useWDS) { %>crossorigin="use-credentials"<% } %>>
       if (isModern) {
         <% for (const entry of latestEntryJS) { %>

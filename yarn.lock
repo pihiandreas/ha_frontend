@@ -1628,6 +1628,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/cairo@npm:5.0.20":
+  version: 5.0.20
+  resolution: "@fontsource-variable/cairo@npm:5.0.20"
+  checksum: 10/2d07f1fe336bdcf30d53b51f13cc6001a97bc3816eb2f7862e50ba470492be006c09faf6f494ad96b739944dbda7cd8c9796f7cac438ccc3e87d8cc516e83fd7
+  languageName: node
+  linkType: hard
+
+"@fontsource-variable/open-sans@npm:5.0.29":
+  version: 5.0.29
+  resolution: "@fontsource-variable/open-sans@npm:5.0.29"
+  checksum: 10/15250470b08ecea67a9e941fe3af0c125c8f7c84a1fea0981e6f837e9ffcfef403e360a769d98d1ebb5b3ec7c2a76c10b5070a35dc73a87ebe43c32bafeb6174
+  languageName: node
+  linkType: hard
+
+"@fontsource/roboto@npm:5.0.14":
+  version: 5.0.14
+  resolution: "@fontsource/roboto@npm:5.0.14"
+  checksum: 10/3feff6b8fa0b423b74776f772151ab5b4f0e0cdec002df5f6990e6fa1df65fd43fceea4cdd26ae85f8001daa60faee87bc7c38fab8f331c198d9ec27398874e1
+  languageName: node
+  linkType: hard
+
 "@formatjs/ecma402-abstract@npm:2.0.0":
   version: 2.0.0
   resolution: "@formatjs/ecma402-abstract@npm:2.0.0"
@@ -8995,6 +9016,9 @@ __metadata:
     "@codemirror/state": "npm:6.4.1"
     "@codemirror/view": "npm:6.29.1"
     "@egjs/hammerjs": "npm:2.0.17"
+    "@fontsource-variable/cairo": "npm:5.0.20"
+    "@fontsource-variable/open-sans": "npm:5.0.29"
+    "@fontsource/roboto": "npm:5.0.14"
     "@formatjs/intl-datetimeformat": "npm:6.12.5"
     "@formatjs/intl-displaynames": "npm:6.6.8"
     "@formatjs/intl-getcanonicallocales": "npm:2.3.0"
@@ -9156,7 +9180,6 @@ __metadata:
     punycode: "npm:2.3.1"
     qr-scanner: "npm:1.4.2"
     qrcode: "npm:1.5.3"
-    roboto-fontface: "npm:0.10.0"
     rollup: "npm:2.79.1"
     rollup-plugin-string: "npm:3.0.0"
     rollup-plugin-terser: "npm:7.0.2"
@@ -12805,13 +12828,6 @@ __metadata:
   bin:
     rimraf: dist/esm/bin.mjs
   checksum: 10/443669809ca3d402ca7565fd9f5b994b5669d8f8b33a23e3a00a66c3a2e4c529d8a5a47c9e7c42f2c7a0c70d21ff8bb1c86493b12027139a3de47fc33fe60084
-  languageName: node
-  linkType: hard
-
-"roboto-fontface@npm:0.10.0":
-  version: 0.10.0
-  resolution: "roboto-fontface@npm:0.10.0"
-  checksum: 10/e29faa2c424ff58c7953cdf6b0a03695e3d723a4977fa955f807d7859b82065543c871cce2a2ebcb6a0e2c1a81ad0fe59d748ffc84d58661b17a42d87c0c9b8d
   languageName: node
   linkType: hard
 

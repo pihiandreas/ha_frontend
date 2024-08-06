@@ -62,7 +62,7 @@ export class HaConfigSection extends LitElement {
       }
 
       .header {
-        font-family: var(--paper-font-headline_-_font-family);
+        font-family: var(--paper-font-headline_-_font-family, "Cairo");
         -webkit-font-smoothing: var(
           --paper-font-headline_-_-webkit-font-smoothing
         );

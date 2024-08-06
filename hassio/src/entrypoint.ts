@@ -10,7 +10,7 @@ import("@polymer/polymer/lib/utils/settings").then(
 const styleEl = document.createElement("style");
 styleEl.textContent = `
 body {
-  font-family: Roboto, sans-serif;
+  font-family: Cairo, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-weight: 400;

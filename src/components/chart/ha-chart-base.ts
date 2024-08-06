@@ -334,7 +334,7 @@ export class HaChartBase extends LitElement {
       ChartConstructor.defaults.font.family =
         computedStyles.getPropertyValue("--mdc-typography-body1-font-family") ||
         computedStyles.getPropertyValue("--mdc-typography-font-family") ||
-        "Roboto, Noto, sans-serif";
+        "Cairo, Noto, sans-serif";
 
       this.chart = new ChartConstructor(ctx, {
         type: this.chartType,

@@ -233,7 +233,7 @@ export class HuiEntityBadge extends LitElement implements LovelaceBadge {
         );
         --mdc-icon-size: 18px;
         text-align: center;
-        font-family: Roboto;
+        font-family: Cairo;
       }
       .badge:focus-visible {
         --shadow-default: var(--ha-card-box-shadow, 0 0 0 0 transparent);

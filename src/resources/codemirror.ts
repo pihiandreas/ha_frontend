@@ -98,7 +98,7 @@ export const haTheme = EditorView.theme({
     background: "none",
     color: "var(--primary-color)",
     fontFamily:
-      "var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Roboto, sans-serif))",
+      "var(--mdc-typography-button-font-family, var(--mdc-typography-font-family, Cairo, sans-serif))",
     fontSize: "var(--mdc-typography-button-font-size, 0.875rem)",
     height: "36px",
     fontWeight: "var(--mdc-typography-button-font-weight, 500)",
@@ -113,7 +113,7 @@ export const haTheme = EditorView.theme({
     color: "var(--primary-text-color)",
     border: "0",
     background: "none",
-    fontFamily: "Roboto",
+    fontFamily: "Cairo",
     borderBottom: "1px solid var(--secondary-text-color)",
     margin: "4px 4px 0",
     "& ::placeholder": {
@@ -150,7 +150,7 @@ export const haTheme = EditorView.theme({
   },
 
   ".cm-completionDetail": {
-    fontFamily: "Roboto",
+    fontFamily: "Cairo",
     color: "var(--secondary-text-color)",
   },
 

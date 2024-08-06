@@ -47,7 +47,7 @@
         }
       }
       body {
-        font-family: Roboto, Noto, sans-serif;
+        font-family: Cairo, Noto, sans-serif;
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         font-weight: 400;
@@ -94,7 +94,7 @@
     </div>
     <ha-demo></ha-demo>
     <%= renderTemplate("../../../src/html/_js_base.html.template") %>
-    <%= renderTemplate("../../../src/html/_preload_roboto.html.template") %>
+    <%= renderTemplate("../../../src/html/_preload_fonts.html.template") %>
     <%= renderTemplate("../../../src/html/_script_loader.html.template") %>
   </body>
 </html>

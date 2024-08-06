@@ -74,9 +74,23 @@ function copyLoaderJS(staticDir) {
 function copyFonts(staticDir) {
   const staticPath = genStaticPath(staticDir);
   // Local fonts
+  // fs.copySync(
+  //   npmPath("roboto-fontface/fonts/roboto/"),
+  //   staticPath("fonts/roboto/"),
+  //   {
+  //     filter: (src) => !src.includes(".") || src.endsWith(".woff2"),
+  //   }
+  // );
   fs.copySync(
-    npmPath("roboto-fontface/fonts/roboto/"),
+    npmPath("@fontsource/roboto/files/"),
     staticPath("fonts/roboto/"),
+    {
+      filter: (src) => !src.includes(".") || src.endsWith(".woff2"),
+    }
+  );
+  fs.copySync(
+    npmPath("@fontsource-variable/cairo/files/"),
+    staticPath("fonts/cairo-variable/"),
     {
       filter: (src) => !src.includes(".") || src.endsWith(".woff2"),
     }

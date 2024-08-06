@@ -62,10 +62,10 @@ gulp.task("gen-service-worker-app-prod", () =>
           "static/icons/favicon-192x192.png",
           "static/icons/favicon.ico",
           // Common fonts
-          "static/fonts/roboto/Roboto-Light.woff2",
-          "static/fonts/roboto/Roboto-Medium.woff2",
-          "static/fonts/roboto/Roboto-Regular.woff2",
-          "static/fonts/roboto/Roboto-Bold.woff2",
+          // "static/fonts/roboto/Roboto-Light.woff2",
+          // "static/fonts/roboto/Roboto-Medium.woff2",
+          // "static/fonts/roboto/Roboto-Regular.woff2",
+          // "static/fonts/roboto/Roboto-Bold.woff2",
         ],
         globIgnores: [`${buildDir}/service-worker*`],
       });

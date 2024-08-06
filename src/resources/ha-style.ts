@@ -1,5 +1,5 @@
 import { css, unsafeCSS } from "lit";
-import { fontStyles } from "./roboto";
+import { fontStyles } from "./font-cairo";
 import {
   DEFAULT_ACCENT_COLOR,
   DEFAULT_PRIMARY_COLOR,
@@ -43,8 +43,8 @@ const mainStyles = css`
 
     /* backgrounds */
     --card-background-color: #ffffff;
-    /* --primary-background-color: #fafafa; */
-    --primary-background-color: #316834;
+    --primary-background-color: #fafafa;
+    /* --primary-background-color: #316834; */
     --secondary-background-color: #e5e5e5; /* behind the cards on state */
     --clear-background-color: #ffffff;
 
@@ -283,12 +283,12 @@ const mainStyles = css`
 
     /* Paper typography Styles */
     --paper-font-common-base: {
-      font-family: "Roboto", "Noto", sans-serif;
+      font-family: "Cairo", "Noto", sans-serif;
       -webkit-font-smoothing: antialiased;
     };
 
     --paper-font-common-code: {
-      font-family: "Roboto Mono", "Consolas", "Menlo", monospace;
+      font-family: "Cairo", "Consolas", "Menlo", monospace;
       -webkit-font-smoothing: antialiased;
     };
 

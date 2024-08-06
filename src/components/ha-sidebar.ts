@@ -852,6 +852,7 @@ class HaSidebar extends SubscribeMixin(LitElement) {
           box-sizing: border-box;
         }
         .menu {
+          @apply --paper-font-common-base;
           height: var(--header-height);
           box-sizing: border-box;
           display: flex;
@@ -929,6 +930,7 @@ class HaSidebar extends SubscribeMixin(LitElement) {
         }
 
         paper-icon-item {
+          @apply --paper-font-common-base;
           box-sizing: border-box;
           margin: 4px;
           padding-left: 12px;

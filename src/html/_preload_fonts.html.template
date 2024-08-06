@@ -10,7 +10,7 @@
           el.crossOrigin = "anonymous";
           document.head.appendChild(el);
         }
-        _pf("/static/fonts/roboto/Roboto-Regular.woff2");
-        _pf("/static/fonts/roboto/Roboto-Medium.woff2");
+        _pf("/static/fonts/cairo-variable/cairo-latin-wght-normal.woff2");
+
       }
     </script>

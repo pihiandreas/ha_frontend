@@ -47,7 +47,7 @@
       <ha-onboarding></ha-onboarding>
     </div>
     <%= renderTemplate("_js_base.html.template") %>
-    <%= renderTemplate("_preload_roboto.html.template") %>
+    <%= renderTemplate("_preload_fonts.html.template") %>
     <%= renderTemplate("_script_loader.html.template") %>
     <script crossorigin="use-credentials">
       if (window.latestJS) {

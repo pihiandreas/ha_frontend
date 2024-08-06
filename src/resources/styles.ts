@@ -16,8 +16,7 @@ export const buttonLinkStyle = css`
 
 export const haStyle = css`
   :host {
-    font-family: var(--paper-font-body1_-_font-family);
-    -webkit-font-smoothing: var(--paper-font-body1_-_-webkit-font-smoothing);
+    @apply --paper-font-common-base;
     font-size: var(--paper-font-body1_-_font-size);
     font-weight: var(--paper-font-body1_-_font-weight);
     line-height: var(--paper-font-body1_-_line-height);
@@ -34,7 +33,7 @@ export const haStyle = css`
   }
 
   h1 {
-    font-family: var(--paper-font-headline_-_font-family);
+    @apply --paper-font-common-base;
     -webkit-font-smoothing: var(--paper-font-headline_-_-webkit-font-smoothing);
     white-space: var(--paper-font-headline_-_white-space);
     overflow: var(--paper-font-headline_-_overflow);
@@ -45,7 +44,7 @@ export const haStyle = css`
   }
 
   h2 {
-    font-family: var(--paper-font-title_-_font-family);
+    @apply --paper-font-common-base;
     -webkit-font-smoothing: var(--paper-font-title_-_-webkit-font-smoothing);
     white-space: var(--paper-font-title_-_white-space);
     overflow: var(--paper-font-title_-_overflow);
@@ -56,7 +55,7 @@ export const haStyle = css`
   }
 
   h3 {
-    font-family: var(--paper-font-subhead_-_font-family);
+    @apply --paper-font-common-base;
     -webkit-font-smoothing: var(--paper-font-subhead_-_-webkit-font-smoothing);
     white-space: var(--paper-font-subhead_-_white-space);
     overflow: var(--paper-font-subhead_-_overflow);
@@ -184,6 +183,11 @@ export const haStyleDialog = css`
 `;
 
 export const haStyleScrollbar = css`
+  * {
+    font-family: "Cairo", "Noto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
   .ha-scrollbar::-webkit-scrollbar {
     width: 0.4rem;
     height: 0.4rem;

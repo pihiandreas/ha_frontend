@@ -20,12 +20,13 @@ module.exports.ignorePackages = () => [];
 // Files from NPM packages that we should replace with empty file
 module.exports.emptyPackages = ({ latestBuild, isHassioBuild }) =>
   [
-    // Contains all color definitions for all material color sets.
-    // We don't use it
-    require.resolve("@polymer/paper-styles/color.js"),
-    require.resolve("@polymer/paper-styles/default-theme.js"),
-    // Loads stuff from a CDN
-    require.resolve("@polymer/font-roboto/roboto.js"),
+    // // Contains all color definitions for all material color sets.
+    // // We don't use it
+    // require.resolve("@polymer/paper-styles/color.js"),
+    // require.resolve("@polymer/paper-styles/default-theme.js"),
+    // // Loads stuff from a CDN
+    // require.resolve("@polymer/font-roboto/roboto.js"),
+
     require.resolve("@vaadin/vaadin-material-styles/typography.js"),
     require.resolve("@vaadin/vaadin-material-styles/font-icons.js"),
     // Compatibility not needed for latest builds
@@ -66,9 +67,9 @@ module.exports.htmlMinifierOptions = {
   decodeEntities: true,
   removeComments: true,
   removeRedundantAttributes: true,
-  minifyCSS: {
-    compatibility: "*,-properties.zeroUnits",
-  },
+  // minifyCSS: {
+  //   compatibility: "*,-properties.zeroUnits",
+  // },
 };
 
 module.exports.terserOptions = ({ latestBuild, isTestBuild }) => ({

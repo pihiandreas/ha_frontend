@@ -16,6 +16,7 @@ import { showNotificationDrawer } from "../dialogs/notifications/show-notificati
 import type { HomeAssistant, Route } from "../types";
 import "./partial-panel-resolver";
 import { computeRTLDirection } from "../common/util/compute_rtl";
+import "@fontsource-variable/cairo";
 
 declare global {
   // for fire event
