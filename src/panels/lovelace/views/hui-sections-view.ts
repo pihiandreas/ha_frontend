@@ -264,7 +264,7 @@ export class SectionsView extends LitElement implements LovelaceViewElement {
       }
 
       .section {
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
       }
 
       .section:not(:has(> *:not([hidden]))) {
@@ -332,7 +332,7 @@ export class SectionsView extends LitElement implements LovelaceViewElement {
         outline: none;
         background: none;
         cursor: pointer;
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
         border: 2px dashed var(--primary-color);
         order: 1;
         height: calc(var(--row-height) + 2 * (var(--row-gap) + 2px));
@@ -345,7 +345,7 @@ export class SectionsView extends LitElement implements LovelaceViewElement {
       }
 
       .sortable-ghost {
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
       }
 
       hui-view-badges {

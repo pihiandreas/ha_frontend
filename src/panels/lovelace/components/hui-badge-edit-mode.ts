@@ -258,7 +258,7 @@ export class HuiBadgeEditMode extends LitElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           z-index: 0;
         }
         .edit-overlay {
@@ -266,7 +266,7 @@ export class HuiBadgeEditMode extends LitElement {
           inset: 0;
           opacity: 0.8;
           background-color: var(--primary-background-color);
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           z-index: 0;
         }
         .edit ha-svg-icon {

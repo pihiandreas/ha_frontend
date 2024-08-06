@@ -706,8 +706,8 @@ export default class HaAutomationTriggerRow extends LitElement {
           overflow: hidden;
           transition: max-height 0.3s;
           text-align: center;
-          border-top-right-radius: var(--ha-card-border-radius, 12px);
-          border-top-left-radius: var(--ha-card-border-radius, 12px);
+          border-top-right-radius: var(--ha-card-border-radius, 8px);
+          border-top-left-radius: var(--ha-card-border-radius, 8px);
         }
         .triggered.active {
           max-height: 100px;

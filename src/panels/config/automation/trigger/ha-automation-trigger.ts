@@ -255,7 +255,7 @@ export default class HaAutomationTrigger extends LitElement {
       }
       .sortable-ghost {
         background: none;
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
       }
       .sortable-drag {
         background: none;

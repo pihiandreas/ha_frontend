@@ -504,7 +504,7 @@ export class HuiBadgePicker extends LitElement {
           max-width: 500px;
           display: flex;
           flex-direction: column;
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           background: var(--primary-background-color, #fafafa);
           cursor: pointer;
           position: relative;
@@ -554,7 +554,7 @@ export class HuiBadgePicker extends LitElement {
           height: 100%;
           z-index: 1;
           box-sizing: border-box;
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
         }
 
         .manual {

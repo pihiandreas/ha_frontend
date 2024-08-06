@@ -663,7 +663,7 @@ class HaConfigAreaPage extends LitElement {
           color: var(--secondary-text-color);
         }
         img {
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           width: 100%;
         }
 

@@ -258,7 +258,7 @@ export class HuiCardEditMode extends LitElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           z-index: 0;
         }
         .edit-overlay {
@@ -267,7 +267,7 @@ export class HuiCardEditMode extends LitElement {
           opacity: 0.8;
           background-color: var(--primary-background-color);
           border: 1px solid var(--divider-color);
-          border-radius: var(--ha-card-border-radius, 12px);
+          border-radius: var(--ha-card-border-radius, 8px);
           z-index: 0;
         }
         .edit ha-svg-icon {

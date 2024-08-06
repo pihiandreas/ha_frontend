@@ -154,7 +154,7 @@ export class HaExpansionPanel extends LitElement {
       .top {
         display: flex;
         align-items: center;
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
       }
 
       .top.expanded {
@@ -171,7 +171,7 @@ export class HaExpansionPanel extends LitElement {
         border-width: 1px;
         border-style: solid;
         border-color: var(--outline-color);
-        border-radius: var(--ha-card-border-radius, 12px);
+        border-radius: var(--ha-card-border-radius, 8px);
       }
 
       .summary-icon {
