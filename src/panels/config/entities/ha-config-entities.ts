@@ -33,10 +33,6 @@ import { storage } from "../../../common/decorators/storage";
 import type { HASSDomEvent } from "../../../common/dom/fire_event";
 import { computeDomain } from "../../../common/entity/compute_domain";
 import { computeStateName } from "../../../common/entity/compute_state_name";
-import {
-  PROTOCOL_INTEGRATIONS,
-  protocolIntegrationPicked,
-} from "../../../common/integrations/protocolIntegrationPicked";
 import { LocalizeFunc } from "../../../common/translations/localize";
 import {
   hasRejectedItems,

@@ -3,7 +3,6 @@ import "@material/mwc-list/mwc-list-item";
 import type { RequestSelectedDetail } from "@material/mwc-list/mwc-list-item";
 import {
   mdiCodeBraces,
-  mdiCommentProcessingOutline,
   mdiDotsVertical,
   mdiFileMultiple,
   mdiFormatListBulletedTriangle,
@@ -28,8 +27,6 @@ import {
 import { customElement, property, state } from "lit/decorators";
 import { classMap } from "lit/directives/class-map";
 import { ifDefined } from "lit/directives/if-defined";
-import memoizeOne from "memoize-one";
-import { isComponentLoaded } from "../../common/config/is_component_loaded";
 import { fireEvent } from "../../common/dom/fire_event";
 import { shouldHandleRequestSelectedEvent } from "../../common/mwc/handle-request-selected-event";
 import { navigate } from "../../common/navigate";
@@ -103,9 +100,9 @@ class HUIRoot extends LitElement {
 
   private _debouncedConfigChanged: () => void;
 
-  private _conversation = memoizeOne((_components) =>
-    isComponentLoaded(this.hass, "conversation")
-  );
+  // private _conversation = memoizeOne((_components) =>
+  //   isComponentLoaded(this.hass, "conversation")
+  // );
 
   constructor() {
     super();
@@ -157,7 +154,7 @@ class HUIRoot extends LitElement {
         icon: mdiFormatListBulletedTriangle,
         key: "ui.panel.lovelace.unused_entities.title",
         overflowAction: this._handleUnusedEntities,
-        visible: this._editMode && !__DEMO__,
+        visible: this._editMode,
         overflow: true,
       },
       {
@@ -171,7 +168,7 @@ class HUIRoot extends LitElement {
         icon: mdiViewDashboard,
         key: "ui.panel.lovelace.editor.menu.manage_dashboards",
         overflowAction: this._handleManageDashboards,
-        visible: this._editMode && !__DEMO__,
+        visible: this._editMode,
         overflow: true,
       },
       {
@@ -187,15 +184,6 @@ class HUIRoot extends LitElement {
         buttonAction: this._showQuickBar,
         overflowAction: this._handleShowQuickBar,
         visible: !this._editMode,
-        overflow: this.narrow,
-      },
-      {
-        icon: mdiCommentProcessingOutline,
-        key: "ui.panel.lovelace.menu.assist",
-        buttonAction: this._showVoiceCommandDialog,
-        overflowAction: this._handleShowVoiceCommandDialog,
-        visible:
-          !this._editMode && this._conversation(this.hass.config.components),
         overflow: this.narrow,
       },
       {
@@ -710,19 +698,6 @@ class HUIRoot extends LitElement {
       return;
     }
     navigate(`${this.route?.prefix}/hass-unused-entities`);
-  }
-
-  private _handleShowVoiceCommandDialog(
-    ev: CustomEvent<RequestSelectedDetail>
-  ): void {
-    if (!shouldHandleRequestSelectedEvent(ev)) {
-      return;
-    }
-    this._showVoiceCommandDialog();
-  }
-
-  private _showVoiceCommandDialog(): void {
-    showVoiceCommandDialog(this, this.hass, { pipeline_id: "last_used" });
   }
 
   private _handleEnableEditMode(ev: CustomEvent<RequestSelectedDetail>): void {

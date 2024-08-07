@@ -1075,35 +1075,6 @@ export class HaConfigDevicePage extends LitElement {
       const actions = mqtt.getMQTTDeviceActions(this, device);
       deviceActions.push(...actions);
     }
-    if (domains.includes("zha")) {
-      const zha = await import(
-        "./device-detail/integration-elements/zha/device-actions"
-      );
-      const actions = await zha.getZHADeviceActions(this, this.hass, device);
-      deviceActions.push(...actions);
-    }
-    if (domains.includes("zwave_js")) {
-      const zwave = await import(
-        "./device-detail/integration-elements/zwave_js/device-actions"
-      );
-      const actions = await zwave.getZwaveDeviceActions(
-        this,
-        this.hass,
-        device
-      );
-      deviceActions.push(...actions);
-    }
-    if (domains.includes("matter")) {
-      const matter = await import(
-        "./device-detail/integration-elements/matter/device-actions"
-      );
-      const actions = await matter.getMatterDeviceActions(
-        this,
-        this.hass,
-        device
-      );
-      deviceActions.push(...actions);
-    }
 
     this._deviceActions = deviceActions;
   }
@@ -1116,21 +1087,6 @@ export class HaConfigDevicePage extends LitElement {
     }
 
     const deviceAlerts: DeviceAlert[] = [];
-
-    const domains = this._integrations(
-      device,
-      this.entries,
-      this.manifests
-    ).map((int) => int.domain);
-
-    if (domains.includes("zwave_js")) {
-      const zwave = await import(
-        "./device-detail/integration-elements/zwave_js/device-alerts"
-      );
-
-      const alerts = await zwave.getZwaveDeviceAlerts(this.hass, device);
-      deviceAlerts.push(...alerts);
-    }
 
     if (deviceAlerts.length) {
       this._deviceAlerts = deviceAlerts;
@@ -1181,45 +1137,6 @@ export class HaConfigDevicePage extends LitElement {
       entityReg: this._entityReg,
       script: false,
     });
-  }
-
-  private _renderIntegrationInfo(
-    device: DeviceRegistryEntry,
-    integrations: ConfigEntry[],
-    deviceInfo: TemplateResult[]
-  ) {
-    const domains = integrations.map((int) => int.domain);
-    if (domains.includes("zha")) {
-      import("./device-detail/integration-elements/zha/ha-device-info-zha");
-      deviceInfo.push(html`
-        <ha-device-info-zha
-          .hass=${this.hass}
-          .device=${device}
-        ></ha-device-info-zha>
-      `);
-    }
-    if (domains.includes("zwave_js")) {
-      import(
-        "./device-detail/integration-elements/zwave_js/ha-device-info-zwave_js"
-      );
-      deviceInfo.push(html`
-        <ha-device-info-zwave_js
-          .hass=${this.hass}
-          .device=${device}
-        ></ha-device-info-zwave_js>
-      `);
-    }
-    if (domains.includes("matter")) {
-      import(
-        "./device-detail/integration-elements/matter/ha-device-info-matter"
-      );
-      deviceInfo.push(html`
-        <ha-device-info-matter
-          .hass=${this.hass}
-          .device=${device}
-        ></ha-device-info-matter>
-      `);
-    }
   }
 
   private async _showSettings() {

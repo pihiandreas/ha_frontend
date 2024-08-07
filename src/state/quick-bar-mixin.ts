@@ -1,6 +1,5 @@
 import type { PropertyValues } from "lit";
 import { tinykeys } from "tinykeys";
-import { isComponentLoaded } from "../common/config/is_component_loaded";
 import { mainWindow } from "../common/dom/get_main_window";
 import {
   QuickBarParams,
@@ -83,31 +82,6 @@ export default <T extends Constructor<HassElement>>(superClass: T) =>
         return;
       }
       e.preventDefault();
-
-      const targetPath = mainWindow.location.pathname;
-      const isHassio = isComponentLoaded(this.hass, "hassio");
-      const myParams = new URLSearchParams();
-
-      if (isHassio && targetPath.startsWith("/hassio")) {
-        const myPanelSupervisor = await import(
-          "../../hassio/src/hassio-my-redirect"
-        );
-        for (const [slug, redirect] of Object.entries(
-          myPanelSupervisor.REDIRECTS
-        )) {
-          if (targetPath.startsWith(redirect.redirect)) {
-            myParams.append("redirect", slug);
-            if (redirect.redirect === "/hassio/addon") {
-              myParams.append("addon", targetPath.split("/")[3]);
-            }
-            window.open(
-              `https://my.home-assistant.io/create-link/?${myParams.toString()}`,
-              "_blank"
-            );
-            return;
-          }
-        }
-      }
     }
 
     private _canShowQuickBar(e: KeyboardEvent) {

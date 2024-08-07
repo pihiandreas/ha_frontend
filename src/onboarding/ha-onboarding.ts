@@ -26,7 +26,6 @@ import { AuthUrlSearchParams, hassUrl } from "../data/auth";
 import {
   OnboardingResponses,
   OnboardingStep,
-  fetchInstallationType,
   fetchOnboardingOverview,
   onboardIntegrationStep,
 } from "../data/onboarding";
@@ -36,7 +35,6 @@ import { HassElement } from "../state/hass-element";
 import { HomeAssistant } from "../types";
 import { storeState } from "../util/ha-pref-storage";
 import { registerServiceWorker } from "../util/register-service-worker";
-import "./onboarding-analytics";
 import "./onboarding-create-user";
 import "./onboarding-loading";
 import "./onboarding-welcome";
@@ -152,14 +150,6 @@ class HaOnboarding extends litLocalizeLiteMixin(HassElement) {
   }
 
   private _renderStep() {
-    if (this._restoring) {
-      return html`<onboarding-restore-backup
-        .hass=${this.hass}
-        .localize=${this.localize}
-      >
-      </onboarding-restore-backup>`;
-    }
-
     if (this._init) {
       return html`<onboarding-welcome
         .localize=${this.localize}
@@ -186,14 +176,6 @@ class HaOnboarding extends litLocalizeLiteMixin(HassElement) {
           .hass=${this.hass}
           .onboardingLocalize=${this.localize}
         ></onboarding-core-config>
-      `;
-    }
-    if (step.step === "analytics") {
-      return html`
-        <onboarding-analytics
-          .hass=${this.hass}
-          .localize=${this.localize}
-        ></onboarding-analytics>
       `;
     }
     if (step.step === "integration") {
@@ -262,26 +244,6 @@ class HaOnboarding extends litLocalizeLiteMixin(HassElement) {
     return this._steps ? this._steps.find((stp) => !stp.done) : undefined;
   }
 
-  private async _fetchInstallationType(): Promise<void> {
-    try {
-      const response = await fetchInstallationType();
-      this._supervisor = [
-        "Home Assistant OS",
-        "Home Assistant Supervised",
-      ].includes(response.installation_type);
-      if (this._supervisor) {
-        // Only load if we have supervisor
-        import("./onboarding-restore-backup");
-      }
-    } catch (err: any) {
-      // eslint-disable-next-line no-console
-      console.error(
-        "Something went wrong loading onboarding-restore-backup",
-        err
-      );
-    }
-  }
-
   private async _fetchOnboardingSteps() {
     try {
       const response = await (window.stepsPromise || fetchOnboardingOverview());
@@ -313,11 +275,12 @@ class HaOnboarding extends litLocalizeLiteMixin(HassElement) {
         const currentStep = steps.findIndex((stp) => !stp.done);
         const singelStepProgress = 1 / steps.length;
         this._progress = currentStep * singelStepProgress + singelStepProgress;
-      } else {
-        this._init = true;
-        // Init screen needs to know the installation type.
-        this._fetchInstallationType();
       }
+      // } else {
+      //   this._init = true;
+      //   // Init screen needs to know the installation type.
+      //   this._fetchInstallationType();
+      // }
 
       this._steps = steps;
     } catch (err: any) {
