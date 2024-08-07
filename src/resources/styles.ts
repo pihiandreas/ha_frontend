@@ -183,11 +183,6 @@ export const haStyleDialog = css`
 `;
 
 export const haStyleScrollbar = css`
-  * {
-    font-family: "Cairo", "Noto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
   .ha-scrollbar::-webkit-scrollbar {
     width: 0.4rem;
     height: 0.4rem;
