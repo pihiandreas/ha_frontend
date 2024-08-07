@@ -13,18 +13,13 @@ import {
 import { customElement, property, state } from "lit/decorators";
 import { until } from "lit/directives/until";
 import memoizeOne from "memoize-one";
-import { isComponentLoaded } from "../../../common/config/is_component_loaded";
 import { fireEvent } from "../../../common/dom/fire_event";
 import { stopPropagation } from "../../../common/dom/stop_propagation";
 import { computeDomain } from "../../../common/entity/compute_domain";
 import { computeObjectId } from "../../../common/entity/compute_object_id";
-import { supportsFeature } from "../../../common/entity/supports-feature";
 import { formatNumber } from "../../../common/number/format_number";
 import { stringCompare } from "../../../common/string/compare";
-import {
-  LocalizeFunc,
-  LocalizeKeys,
-} from "../../../common/translations/localize";
+import { LocalizeFunc } from "../../../common/translations/localize";
 import { copyToClipboard } from "../../../common/util/copy-clipboard";
 import "../../../components/ha-alert";
 import "../../../components/ha-area-picker";
@@ -40,14 +35,6 @@ import "../../../components/ha-switch";
 import "../../../components/ha-labels-picker";
 import type { HaSwitch } from "../../../components/ha-switch";
 import "../../../components/ha-textfield";
-import {
-  CAMERA_ORIENTATIONS,
-  CAMERA_SUPPORT_STREAM,
-  CameraPreferences,
-  fetchCameraPrefs,
-  STREAM_TYPE_HLS,
-  updateCameraPrefs,
-} from "../../../data/camera";
 import { ConfigEntry, deleteConfigEntry } from "../../../data/config_entries";
 import {
   createConfigFlow,
@@ -231,20 +218,6 @@ export class EntityRegistrySettingsEditor extends LitElement {
     this._switchAsInvert = this.entry.options?.switch_as_x?.invert === true;
 
     const domain = computeDomain(this.entry.entity_id);
-
-    if (domain === "camera" && isComponentLoaded(this.hass, "stream")) {
-      const stateObj: HassEntity | undefined =
-        this.hass.states[this.entry.entity_id];
-      if (
-        stateObj &&
-        supportsFeature(stateObj, CAMERA_SUPPORT_STREAM) &&
-        // The stream component for HLS streams supports a server-side pre-load
-        // option that client initiated WebRTC streams do not
-        stateObj.attributes.frontend_stream_type === STREAM_TYPE_HLS
-      ) {
-        this._fetchCameraPrefs();
-      }
-    }
 
     if (domain === "number" || domain === "sensor") {
       const stateObj: HassEntity | undefined =
@@ -789,61 +762,6 @@ export class EntityRegistrySettingsEditor extends LitElement {
         .disabled=${this.disabled}
         @value-changed=${this._labelsChanged}
       ></ha-labels-picker>
-      ${this._cameraPrefs
-        ? html`
-            <ha-settings-row>
-              <span slot="heading"
-                >${this.hass.localize(
-                  "ui.dialogs.entity_registry.editor.stream.preload_stream"
-                )}</span
-              >
-              <span slot="description"
-                >${this.hass.localize(
-                  "ui.dialogs.entity_registry.editor.stream.preload_stream_description"
-                )}</span
-              >
-              <ha-switch
-                .checked=${this._cameraPrefs.preload_stream}
-                .disabled=${this.disabled}
-                @change=${this._handleCameraPrefsChanged}
-              >
-              </ha-switch>
-            </ha-settings-row>
-            <ha-settings-row>
-              <span slot="heading"
-                >${this.hass.localize(
-                  "ui.dialogs.entity_registry.editor.stream.stream_orientation"
-                )}</span
-              >
-              <span slot="description"
-                >${this.hass.localize(
-                  "ui.dialogs.entity_registry.editor.stream.stream_orientation_description"
-                )}</span
-              >
-              <ha-select
-                .label=${this.hass.localize(
-                  "ui.dialogs.entity_registry.editor.stream.stream_orientation"
-                )}
-                naturalMenuWidth
-                fixedMenuPosition
-                .disabled=${this.disabled}
-                @selected=${this._handleCameraOrientationChanged}
-                @closed=${stopPropagation}
-              >
-                ${CAMERA_ORIENTATIONS.map((num) => {
-                  const localizeStr =
-                    "ui.dialogs.entity_registry.editor.stream.stream_orientation_" +
-                    num.toString();
-                  return html`
-                    <ha-list-item value=${num}>
-                      ${this.hass.localize(localizeStr as LocalizeKeys)}
-                    </ha-list-item>
-                  `;
-                })}
-              </ha-select>
-            </ha-settings-row>
-          `
-        : ""}
       ${this.helperConfigEntry &&
       this.helperConfigEntry.supports_options &&
       this.helperConfigEntry.domain !== "switch_as_x"

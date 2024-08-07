@@ -19,21 +19,14 @@ import "../../../components/ha-card";
 import "../../../components/ha-circular-progress";
 import { createCloseHeading } from "../../../components/ha-dialog";
 import "../../../components/ha-metric";
-import { fetchHassioStats, HassioStats } from "../../../data/hassio/common";
-import {
-  fetchHassioResolution,
-  HassioResolution,
-} from "../../../data/hassio/resolution";
 import { domainToName } from "../../../data/integration";
 import {
   subscribeSystemHealthInfo,
   SystemCheckValueObject,
   SystemHealthInfo,
 } from "../../../data/system_health";
-import { showAlertDialog } from "../../../dialogs/generic/show-dialog-box";
 import { haStyleDialog } from "../../../resources/styles";
 import type { HomeAssistant } from "../../../types";
-import { documentationUrl } from "../../../util/documentation-url";
 import { showToast } from "../../../util/toast";
 
 const sortKeys = (a: string, b: string) => {
@@ -62,12 +55,6 @@ class DialogSystemInformation extends LitElement {
   @property({ attribute: false }) public hass!: HomeAssistant;
 
   @state() private _systemInfo?: SystemHealthInfo;
-
-  @state() private _resolutionInfo?: HassioResolution;
-
-  @state() private _supervisorStats?: HassioStats;
-
-  @state() private _coreStats?: HassioStats;
 
   @state() private _opened = false;
 
@@ -127,9 +114,6 @@ class DialogSystemInformation extends LitElement {
     this._hassIOSubscription = undefined;
 
     this._systemInfo = undefined;
-    this._resolutionInfo = undefined;
-    this._coreStats = undefined;
-    this._supervisorStats = undefined;
   }
 
   protected render() {
@@ -149,85 +133,7 @@ class DialogSystemInformation extends LitElement {
         )}
       >
         <div>
-          ${this._resolutionInfo
-            ? html`${this._resolutionInfo.unhealthy.length
-                ? html`<ha-alert alert-type="error">
-                    ${this.hass.localize("ui.dialogs.unhealthy.title")}
-                    <mwc-button
-                      slot="action"
-                      .label=${this.hass.localize(
-                        "ui.panel.config.common.learn_more"
-                      )}
-                      @click=${this._unhealthyDialog}
-                    >
-                    </mwc-button
-                  ></ha-alert>`
-                : ""}
-              ${this._resolutionInfo.unsupported.length
-                ? html`<ha-alert alert-type="warning">
-                    ${this.hass.localize("ui.dialogs.unsupported.title")}
-                    <mwc-button
-                      slot="action"
-                      .label=${this.hass.localize(
-                        "ui.panel.config.common.learn_more"
-                      )}
-                      @click=${this._unsupportedDialog}
-                    >
-                    </mwc-button>
-                  </ha-alert>`
-                : ""} `
-            : ""}
-
           <div>${sections}</div>
-
-          ${!this._coreStats && !this._supervisorStats
-            ? ""
-            : html`
-                <div>
-                  ${this._coreStats
-                    ? html`
-                        <h3>
-                          ${this.hass.localize(
-                            "ui.panel.config.system_health.core_stats"
-                          )}
-                        </h3>
-                        <ha-metric
-                          .heading=${this.hass.localize(
-                            "ui.panel.config.system_health.cpu_usage"
-                          )}
-                          .value=${this._coreStats.cpu_percent}
-                        ></ha-metric>
-                        <ha-metric
-                          .heading=${this.hass.localize(
-                            "ui.panel.config.system_health.ram_usage"
-                          )}
-                          .value=${this._coreStats.memory_percent}
-                        ></ha-metric>
-                      `
-                    : ""}
-                  ${this._supervisorStats
-                    ? html`
-                        <h3>
-                          ${this.hass.localize(
-                            "ui.panel.config.system_health.supervisor_stats"
-                          )}
-                        </h3>
-                        <ha-metric
-                          .heading=${this.hass.localize(
-                            "ui.panel.config.system_health.cpu_usage"
-                          )}
-                          .value=${this._supervisorStats.cpu_percent}
-                        ></ha-metric>
-                        <ha-metric
-                          .heading=${this.hass.localize(
-                            "ui.panel.config.system_health.ram_usage"
-                          )}
-                          .value=${this._supervisorStats.memory_percent}
-                        ></ha-metric>
-                      `
-                    : ""}
-                </div>
-              `}
         </div>
         <mwc-button
           slot="primaryAction"
@@ -236,64 +142,6 @@ class DialogSystemInformation extends LitElement {
         ></mwc-button>
       </ha-dialog>
     `;
-  }
-
-  private async _unsupportedDialog(): Promise<void> {
-    await showAlertDialog(this, {
-      title: this.hass.localize("ui.dialogs.unsupported.title"),
-      text: html`${this.hass.localize("ui.dialogs.unsupported.description")}
-        <br /><br />
-        <ul>
-          ${this._resolutionInfo!.unsupported.map(
-            (reason) => html`
-              <li>
-                <a
-                  href=${documentationUrl(
-                    this.hass,
-                    UNSUPPORTED_REASON_URL[reason] ||
-                      `/more-info/unsupported/${reason}`
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  ${this.hass.localize(
-                    `ui.dialogs.unsupported.reason.${reason}`
-                  ) || reason}
-                </a>
-              </li>
-            `
-          )}
-        </ul>`,
-    });
-  }
-
-  private async _unhealthyDialog(): Promise<void> {
-    await showAlertDialog(this, {
-      title: this.hass.localize("ui.dialogs.unhealthy.title"),
-      text: html`${this.hass.localize("ui.dialogs.unhealthy.description")}
-        <br /><br />
-        <ul>
-          ${this._resolutionInfo!.unhealthy.map(
-            (reason) => html`
-              <li>
-                <a
-                  href=${documentationUrl(
-                    this.hass,
-                    UNHEALTHY_REASON_URL[reason] ||
-                      `/more-info/unhealthy/${reason}`
-                  )}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  ${this.hass.localize(
-                    `ui.dialogs.unhealthy.reason.${reason}`
-                  ) || reason}
-                </a>
-              </li>
-            `
-          )}
-        </ul>`,
-    });
   }
 
   private _getSections(): TemplateResult[] {

@@ -8,23 +8,22 @@ import {
 } from "@mdi/js";
 import { CSSResultGroup, LitElement, css, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators";
-import { isComponentLoaded } from "../../common/config/is_component_loaded";
 import { fireEvent } from "../../common/dom/fire_event";
 import { shouldHandleRequestSelectedEvent } from "../../common/mwc/handle-request-selected-event";
 import "../../components/ha-circular-progress";
 import { createCloseHeading } from "../../components/ha-dialog";
 import "../../components/ha-expansion-panel";
 import "../../components/ha-list-item";
-import {
-  extractApiErrorMessage,
-  ignoreSupervisorError,
-} from "../../data/hassio/common";
-import {
-  HassioHostInfo,
-  fetchHassioHostInfo,
-  rebootHost,
-  shutdownHost,
-} from "../../data/hassio/host";
+// import {
+//   extractApiErrorMessage,
+//   ignoreSupervisorError,
+// } from "../../data/hassio/common";
+// import {
+//   HassioHostInfo,
+//   fetchHassioHostInfo,
+//   rebootHost,
+//   shutdownHost,
+// } from "../../data/hassio/host";
 import { haStyle, haStyleDialog } from "../../resources/styles";
 import { HomeAssistant } from "../../types";
 import { showToast } from "../../util/toast";
@@ -42,24 +41,24 @@ class DialogRestart extends LitElement {
   @state()
   private _loadingHostInfo = false;
 
-  @state()
-  private _hostInfo?: HassioHostInfo;
+  // @state()
+  // private _hostInfo?: HassioHostInfo;
 
   public async showDialog(): Promise<void> {
-    const isHassioLoaded = isComponentLoaded(this.hass, "hassio");
+    // const isHassioLoaded = isComponentLoaded(this.hass, "hassio");
 
     this._open = true;
 
-    if (isHassioLoaded && !this._hostInfo) {
-      this._loadingHostInfo = true;
-      try {
-        this._hostInfo = await fetchHassioHostInfo(this.hass);
-      } catch (_err) {
-        // Do nothing
-      } finally {
-        this._loadingHostInfo = false;
-      }
-    }
+    // if (isHassioLoaded && !this._hostInfo) {
+    //   this._loadingHostInfo = true;
+    //   try {
+    //     this._hostInfo = await fetchHassioHostInfo(this.hass);
+    //   } catch (_err) {
+    //     // Do nothing
+    //   } finally {
+    //     this._loadingHostInfo = false;
+    //   }
+    // }
   }
 
   public closeDialog(): void {
@@ -74,8 +73,9 @@ class DialogRestart extends LitElement {
     }
 
     const showReload = this.hass.userData?.showAdvanced;
-    const showRebootShutdown = !!this._hostInfo;
-
+    // const showRebootShutdown = !!this._hostInfo;
+    const showRebootShutdown = false;
+    // TODO: remove dependencies on hassio, rewrite reboot/shutdown functionality
     return html`
       <ha-dialog
         open
@@ -345,15 +345,15 @@ class DialogRestart extends LitElement {
     });
 
     try {
-      await rebootHost(this.hass);
+      // await rebootHost(this.hass);
     } catch (err: any) {
       // Ignore connection errors, these are all expected
-      if (this.hass.connection.connected && !ignoreSupervisorError(err)) {
-        showAlertDialog(this, {
-          title: this.hass.localize("ui.dialogs.restart.reboot.failed"),
-          text: extractApiErrorMessage(err),
-        });
-      }
+      // if (this.hass.connection.connected && !ignoreSupervisorError(err)) {
+      //   showAlertDialog(this, {
+      //     title: this.hass.localize("ui.dialogs.restart.reboot.failed"),
+      //     text: extractApiErrorMessage(err),
+      //   });
+      // }
     }
   }
 
@@ -384,15 +384,15 @@ class DialogRestart extends LitElement {
     });
 
     try {
-      await shutdownHost(this.hass);
+      // await shutdownHost(this.hass);
     } catch (err: any) {
       // Ignore connection errors, these are all expected
-      if (this.hass.connection.connected && !ignoreSupervisorError(err)) {
-        showAlertDialog(this, {
-          title: this.hass.localize("ui.dialogs.restart.shutdown.failed"),
-          text: extractApiErrorMessage(err),
-        });
-      }
+      // if (this.hass.connection.connected && !ignoreSupervisorError(err)) {
+      //   showAlertDialog(this, {
+      //     title: this.hass.localize("ui.dialogs.restart.shutdown.failed"),
+      //     text: extractApiErrorMessage(err),
+      //   });
+      // }
     }
   }
 

@@ -21,7 +21,6 @@ import { hasAction } from "../common/has-action";
 import { LovelaceBadge, LovelaceBadgeEditor } from "../types";
 import { EntityBadgeConfig } from "./types";
 import { computeStateDomain } from "../../../common/entity/compute_state_domain";
-import { cameraUrlWithWidthHeight } from "../../../data/camera";
 
 export const DISPLAY_TYPES = ["minimal", "standard", "complete"] as const;
 

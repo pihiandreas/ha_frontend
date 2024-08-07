@@ -1,20 +1,15 @@
 import { ContextProvider } from "@lit-labs/context";
 import {
   mdiAccount,
-  mdiBackupRestore,
   mdiBadgeAccountHorizontal,
   mdiCellphoneCog,
   mdiCog,
-  mdiDatabase,
   mdiDevices,
   mdiInformation,
   mdiInformationOutline,
   mdiLabel,
-  mdiLightningBolt,
   mdiMapMarkerRadius,
   mdiMathLog,
-  mdiMemory,
-  mdiMicrophone,
   mdiNetwork,
   mdiNfcVariant,
   mdiPalette,
@@ -81,24 +76,11 @@ export const configSections: { [name: string]: PageNavigation[] } = {
       component: "zone",
     },
     {
-      path: "/hassio",
-      translationKey: "supervisor",
-      iconPath: mdiPuzzle,
-      iconColor: "#F1C447",
-      component: "hassio",
-    },
-    {
       path: "/config/lovelace/dashboards",
       translationKey: "dashboards",
       iconPath: mdiViewDashboard,
       iconColor: "#B1345C",
       component: "lovelace",
-    },
-    {
-      path: "/config/voice-assistants",
-      translationKey: "voice_assistants",
-      iconPath: mdiMicrophone,
-      iconColor: "#3263C3",
     },
     {
       path: "/config/tags",
@@ -133,15 +115,6 @@ export const configSections: { [name: string]: PageNavigation[] } = {
       iconPath: mdiInformationOutline,
       iconColor: "#4A5963",
       core: true,
-    },
-  ],
-  backup: [
-    {
-      path: "/config/backup",
-      translationKey: "ui.panel.config.backup.caption",
-      iconPath: mdiBackupRestore,
-      iconColor: "#4084CD",
-      component: "backup",
     },
   ],
   devices: [
@@ -217,24 +190,7 @@ export const configSections: { [name: string]: PageNavigation[] } = {
       iconColor: "#616161",
     },
   ],
-  voice_assistants: [
-    {
-      path: "/config/voice-assistants",
-      translationKey: "ui.panel.config.dashboard.voice_assistants.main",
-      iconPath: mdiMicrophone,
-      iconColor: "#3263C3",
-    },
-  ],
   // Not used as a tab, but this way it will stay in the quick bar
-  energy: [
-    {
-      component: "energy",
-      path: "/config/energy",
-      translationKey: "ui.panel.config.energy.caption",
-      iconPath: mdiLightningBolt,
-      iconColor: "#F1C447",
-    },
-  ],
   lovelace: [
     {
       component: "lovelace",
@@ -316,45 +272,10 @@ export const configSections: { [name: string]: PageNavigation[] } = {
       core: true,
     },
     {
-      path: "/config/backup",
-      translationKey: "backup",
-      iconPath: mdiBackupRestore,
-      iconColor: "#0D47A1",
-      component: "backup",
-      not_component: "hassio",
-    },
-    {
-      path: "/hassio/backups",
-      translationKey: "backup",
-      iconPath: mdiBackupRestore,
-      iconColor: "#0D47A1",
-      component: "hassio",
-    },
-    {
-      path: "/config/analytics",
-      translationKey: "analytics",
-      iconPath: mdiShape,
-      iconColor: "#f1c447",
-    },
-    {
       path: "/config/network",
       translationKey: "network",
       iconPath: mdiNetwork,
       iconColor: "#B1345C",
-    },
-    {
-      path: "/config/storage",
-      translationKey: "storage",
-      iconPath: mdiDatabase,
-      iconColor: "#518C43",
-      component: "hassio",
-    },
-    {
-      path: "/config/hardware",
-      translationKey: "hardware",
-      iconPath: mdiMemory,
-      iconColor: "#301A8E",
-      component: ["hassio", "hardware"],
     },
   ],
   about: [
@@ -455,10 +376,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
         tag: "ha-config-entities",
         load: () => import("./entities/ha-config-entities"),
       },
-      hardware: {
-        tag: "ha-config-hardware",
-        load: () => import("./hardware/ha-config-hardware"),
-      },
       integrations: {
         tag: "ha-config-integrations",
         load: () => import("./integrations/ha-config-integrations"),
@@ -486,10 +403,6 @@ class HaPanelConfig extends SubscribeMixin(HassRouterPage) {
       helpers: {
         tag: "ha-config-helpers",
         load: () => import("./helpers/ha-config-helpers"),
-      },
-      storage: {
-        tag: "ha-config-section-storage",
-        load: () => import("./storage/ha-config-section-storage"),
       },
       updates: {
         tag: "ha-config-section-updates",

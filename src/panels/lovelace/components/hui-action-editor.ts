@@ -10,8 +10,7 @@ import { customElement, property, query } from "lit/decorators";
 import memoizeOne from "memoize-one";
 import { fireEvent } from "../../../common/dom/fire_event";
 import { stopPropagation } from "../../../common/dom/stop_propagation";
-import "../../../components/ha-assist-pipeline-picker";
-import { HaFormSchema, SchemaUnion } from "../../../components/ha-form/types";
+import { HaFormSchema } from "../../../components/ha-form/types";
 import "../../../components/ha-help-tooltip";
 import "../../../components/ha-navigation-picker";
 import "../../../components/ha-service-control";
@@ -44,29 +43,6 @@ const NAVIGATE_SCHEMA = [
     selector: {
       navigation: {},
     },
-  },
-] as const satisfies readonly HaFormSchema[];
-
-const ASSIST_SCHEMA = [
-  {
-    type: "grid",
-    name: "",
-    schema: [
-      {
-        name: "pipeline_id",
-        selector: {
-          assist_pipeline: {
-            include_last_used: true,
-          },
-        },
-      },
-      {
-        name: "start_listening",
-        selector: {
-          boolean: {},
-        },
-      },
-    ],
   },
 ] as const satisfies readonly HaFormSchema[];
 
@@ -206,18 +182,6 @@ export class HuiActionEditor extends LitElement {
             ></ha-service-control>
           `
         : nothing}
-      ${this.config?.action === "assist"
-        ? html`
-            <ha-form
-              .hass=${this.hass}
-              .schema=${ASSIST_SCHEMA}
-              .data=${this.config}
-              .computeLabel=${this._computeFormLabel}
-              @value-changed=${this._formValueChanged}
-            >
-            </ha-form>
-          `
-        : nothing}
     `;
   }
 
@@ -280,12 +244,6 @@ export class HuiActionEditor extends LitElement {
     fireEvent(this, "value-changed", {
       value: value,
     });
-  }
-
-  private _computeFormLabel(schema: SchemaUnion<typeof ASSIST_SCHEMA>) {
-    return this.hass?.localize(
-      `ui.panel.lovelace.editor.action-editor.${schema.name}`
-    );
   }
 
   private _serviceValueChanged(ev: CustomEvent) {

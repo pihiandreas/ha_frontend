@@ -1,9 +1,9 @@
 import { STATE_NOT_RUNNING } from "home-assistant-js-websocket";
 import { ReactiveElement } from "lit";
 import { customElement } from "lit/decorators";
-import { isComponentLoaded } from "../../../../common/config/is_component_loaded";
+// import { isComponentLoaded } from "../../../../common/config/is_component_loaded";
 import type { AreaFilterValue } from "../../../../components/ha-area-filter";
-import { getEnergyPreferences } from "../../../../data/energy";
+// import { getEnergyPreferences } from "../../../../data/energy";
 import { LovelaceViewConfig } from "../../../../data/lovelace/config/view";
 import { HomeAssistant } from "../../../../types";
 import { generateDefaultViewConfig } from "../../common/generate-lovelace-config";
@@ -35,10 +35,11 @@ export class OriginalStatesViewStrategy extends ReactiveElement {
 
     const [localize, energyPrefs] = await Promise.all([
       hass.loadBackendTranslation("title"),
-      isComponentLoaded(hass, "energy")
-        ? // It raises if not configured, just swallow that.
-          getEnergyPreferences(hass).catch(() => undefined)
-        : undefined,
+      undefined,
+      // isComponentLoaded(hass, "energy")
+      //   ? // It raises if not configured, just swallow that.
+      //     getEnergyPreferences(hass).catch(() => undefined)
+      //   : undefined,
     ]);
 
     // User can override default view. If they didn't, we will add one

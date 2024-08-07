@@ -15,16 +15,10 @@ import {
   html,
   nothing,
 } from "lit";
-import { customElement, property, state } from "lit/decorators";
-import { isComponentLoaded } from "../../../common/config/is_component_loaded";
+import { customElement, property } from "lit/decorators";
 import "../../../components/ha-card";
 import "../../../components/ha-clickable-list-item";
 import "../../../components/ha-logo-svg";
-import {
-  HassioHassOSInfo,
-  fetchHassioHassOsInfo,
-} from "../../../data/hassio/host";
-import { HassioInfo, fetchHassioInfo } from "../../../data/hassio/supervisor";
 import "../../../layouts/hass-subpage";
 import { mdiHomeAssistant } from "../../../resources/home-assistant-logo-svg";
 import { haStyle } from "../../../resources/styles";
@@ -96,10 +90,6 @@ class HaConfigInfo extends LitElement {
 
   @property({ attribute: false }) public route!: Route;
 
-  @state() private _osInfo?: HassioHassOSInfo;
-
-  @state() private _hassioInfo?: HassioInfo;
-
   protected render(): TemplateResult {
     const hass = this.hass;
     const customUiList: Array<{ name: string; url: string; version: string }> =
@@ -132,24 +122,6 @@ class HaConfigInfo extends LitElement {
                 <span class="version-label">Core</span>
                 <span class="version">${hass.connection.haVersion}</span>
               </li>
-              ${this._hassioInfo
-                ? html`
-                    <li>
-                      <span class="version-label">Supervisor</span>
-                      <span class="version"
-                        >${this._hassioInfo.supervisor}</span
-                      >
-                    </li>
-                  `
-                : nothing}
-              ${this._osInfo
-                ? html`
-                    <li>
-                      <span class="version-label">Operating System</span>
-                      <span class="version">${this._osInfo.version}</span>
-                    </li>
-                  `
-                : nothing}
               <li>
                 <span class="version-label">
                   ${this.hass.localize(
@@ -229,20 +201,6 @@ class HaConfigInfo extends LitElement {
         this.requestUpdate();
       }
     }, 2000);
-
-    if (isComponentLoaded(this.hass, "hassio")) {
-      this._loadSupervisorInfo();
-    }
-  }
-
-  private async _loadSupervisorInfo(): Promise<void> {
-    const [osInfo, hassioInfo] = await Promise.all([
-      fetchHassioHassOsInfo(this.hass),
-      fetchHassioInfo(this.hass),
-    ]);
-
-    this._hassioInfo = hassioInfo;
-    this._osInfo = osInfo;
   }
 
   static get styles(): CSSResultGroup {

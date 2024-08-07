@@ -15,7 +15,6 @@ import { styleMap } from "lit/directives/style-map";
 import memoizeOne from "memoize-one";
 import { canShowPage } from "../../common/config/can_show_page";
 import { componentsWithService } from "../../common/config/components_with_service";
-import { isComponentLoaded } from "../../common/config/is_component_loaded";
 import { fireEvent } from "../../common/dom/fire_event";
 import { computeStateName } from "../../common/entity/compute_state_name";
 import { navigate } from "../../common/navigate";
@@ -30,7 +29,6 @@ import "../../components/ha-icon-button";
 import "../../components/ha-label";
 import "../../components/ha-list-item";
 import "../../components/ha-textfield";
-import { fetchHassioAddonsInfo } from "../../data/hassio/addon";
 import { domainToName } from "../../data/integration";
 import { getPanelNameTranslationKey } from "../../data/panel";
 import { PageNavigation } from "../../layouts/hass-tabs-subpage";
@@ -626,30 +624,6 @@ export class QuickBar extends LitElement {
     const panelItems = this._generateNavigationPanelCommands();
     const sectionItems = this._generateNavigationConfigSectionCommands();
     const supervisorItems: BaseNavigationCommand[] = [];
-    if (isComponentLoaded(this.hass, "hassio")) {
-      const addonsInfo = await fetchHassioAddonsInfo(this.hass);
-      supervisorItems.push({
-        path: "/hassio/store",
-        primaryText: this.hass.localize(
-          "ui.dialogs.quick-bar.commands.navigation.addon_store"
-        ),
-      });
-      supervisorItems.push({
-        path: "/hassio/dashboard",
-        primaryText: this.hass.localize(
-          "ui.dialogs.quick-bar.commands.navigation.addon_dashboard"
-        ),
-      });
-      for (const addon of addonsInfo.addons.filter((a) => a.version)) {
-        supervisorItems.push({
-          path: `/hassio/addon/${addon.slug}`,
-          primaryText: this.hass.localize(
-            "ui.dialogs.quick-bar.commands.navigation.addon_info",
-            { addon: addon.name }
-          ),
-        });
-      }
-    }
 
     return this._finalizeNavigationCommands([
       ...panelItems,

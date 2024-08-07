@@ -9,9 +9,6 @@ import "../card-features/hui-cover-tilt-card-feature";
 import "../card-features/hui-cover-tilt-position-card-feature";
 import "../card-features/hui-fan-preset-modes-card-feature";
 import "../card-features/hui-fan-speed-card-feature";
-import "../card-features/hui-humidifier-modes-card-feature";
-import "../card-features/hui-humidifier-toggle-card-feature";
-import "../card-features/hui-lawn-mower-commands-card-feature";
 import "../card-features/hui-light-brightness-card-feature";
 import "../card-features/hui-light-color-temp-card-feature";
 import "../card-features/hui-lock-commands-card-feature";
@@ -21,8 +18,6 @@ import "../card-features/hui-select-options-card-feature";
 import "../card-features/hui-target-temperature-card-feature";
 import "../card-features/hui-target-humidity-card-feature";
 import "../card-features/hui-update-actions-card-feature";
-import "../card-features/hui-vacuum-commands-card-feature";
-import "../card-features/hui-water-heater-operation-modes-card-feature";
 
 import { LovelaceCardFeatureConfig } from "../card-features/types";
 import {

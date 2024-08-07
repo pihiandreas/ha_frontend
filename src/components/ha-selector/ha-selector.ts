@@ -11,7 +11,6 @@ import type { HomeAssistant } from "../../types";
 
 const LOAD_ELEMENTS = {
   action: () => import("./ha-selector-action"),
-  addon: () => import("./ha-selector-addon"),
   area: () => import("./ha-selector-area"),
   area_filter: () => import("./ha-selector-area-filter"),
   attribute: () => import("./ha-selector-attribute"),
@@ -39,7 +38,6 @@ const LOAD_ELEMENTS = {
   select: () => import("./ha-selector-select"),
   selector: () => import("./ha-selector-selector"),
   state: () => import("./ha-selector-state"),
-  backup_location: () => import("./ha-selector-backup-location"),
   target: () => import("./ha-selector-target"),
   template: () => import("./ha-selector-template"),
   text: () => import("./ha-selector-text"),

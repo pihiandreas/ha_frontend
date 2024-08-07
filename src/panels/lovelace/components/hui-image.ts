@@ -12,19 +12,12 @@ import { styleMap } from "lit/directives/style-map";
 import { STATES_OFF } from "../../../common/const";
 import { computeDomain } from "../../../common/entity/compute_domain";
 import parseAspectRatio from "../../../common/util/parse-aspect-ratio";
-import "../../../components/ha-camera-stream";
-import type { HaCameraStream } from "../../../components/ha-camera-stream";
 import "../../../components/ha-circular-progress";
-import { CameraEntity, fetchThumbnailUrlWithCache } from "../../../data/camera";
 import { UNAVAILABLE } from "../../../data/entity";
 import { computeImageUrl, ImageEntity } from "../../../data/image";
 import { HomeAssistant } from "../../../types";
 
-const UPDATE_INTERVAL = 10000;
 const DEFAULT_FILTER = "grayscale(100%)";
-
-const MAX_IMAGE_WIDTH = 640;
-const ASPECT_RATIO_DEFAULT = 9 / 16;
 
 const enum LoadState {
   Loading = 1,
@@ -93,7 +86,6 @@ export class HuiImage extends LitElement {
 
   public disconnectedCallback(): void {
     super.disconnectedCallback();
-    this._stopUpdateCameraInterval();
     this._stopIntersectionObserver();
     this._imageVisible = undefined;
   }
@@ -109,20 +101,10 @@ export class HuiImage extends LitElement {
       if (this._shouldStartCameraUpdates(oldHass)) {
         this._startIntersectionObserverOrUpdates();
       } else if (!this.hass!.connected) {
-        this._stopUpdateCameraInterval();
         this._stopIntersectionObserver();
         this._loadState = LoadState.Loading;
         this._cameraImageSrc = undefined;
         this._loadedImageSrc = undefined;
-      }
-    }
-    if (changedProps.has("_imageVisible")) {
-      if (this._imageVisible) {
-        if (this._shouldStartCameraUpdates()) {
-          this._startUpdateCameraInterval();
-        }
-      } else {
-        this._stopUpdateCameraInterval();
       }
     }
     if (changedProps.has("aspectRatio")) {
@@ -147,17 +129,10 @@ export class HuiImage extends LitElement {
 
     // Figure out image source to use
     let imageSrc: string | undefined;
-    let cameraObj: CameraEntity | undefined;
     // Track if we are we using a fallback image, used for filter.
     let imageFallback = !this.stateImage;
 
-    if (this.cameraImage) {
-      if (this.cameraView === "live") {
-        cameraObj = this.hass.states[this.cameraImage] as CameraEntity;
-      } else {
-        imageSrc = this._cameraImageSrc;
-      }
-    } else if (this.stateImage) {
+    if (this.stateImage) {
       const stateImage = this.stateImage[entityState];
 
       if (stateImage) {
@@ -217,31 +192,19 @@ export class HuiImage extends LitElement {
           fill: this.fitMode === "fill",
         })}"
       >
-        ${this.cameraImage && this.cameraView === "live"
-          ? html`
-              <ha-camera-stream
-                muted
-                .hass=${this.hass}
-                .stateObj=${cameraObj}
-                @load=${this._onVideoLoad}
-              ></ha-camera-stream>
-            `
-          : imageSrc === undefined
-            ? nothing
-            : html`
-                <img
-                  id="image"
-                  src=${imageSrc}
-                  @error=${this._onImageError}
-                  @load=${this._onImageLoad}
-                  style=${styleMap({
-                    display:
-                      useRatio || this._loadState === LoadState.Loaded
-                        ? "block"
-                        : "none",
-                  })}
-                />
-              `}
+        <img
+          id="image"
+          src=${imageSrc!}
+          alt="placeholder"
+          @error=${this._onImageError}
+          @load=${this._onImageLoad}
+          style=${styleMap({
+            display:
+              useRatio || this._loadState === LoadState.Loaded
+                ? "block"
+                : "none",
+          })}
+        />
         ${this._loadState === LoadState.Error
           ? html`<div
               id="brokenImage"
@@ -292,31 +255,13 @@ export class HuiImage extends LitElement {
       // No support for IntersectionObserver
       // assume all images are visible
       this._imageVisible = true;
-      this._startUpdateCameraInterval();
+      // this._startUpdateCameraInterval();
     }
   }
 
   private _stopIntersectionObserver(): void {
     if (this._intersectionObserver) {
       this._intersectionObserver.disconnect();
-    }
-  }
-
-  private _startUpdateCameraInterval(): void {
-    this._stopUpdateCameraInterval();
-    this._updateCameraImageSrc();
-    if (this.cameraImage && this.isConnected) {
-      this._cameraUpdater = window.setInterval(
-        () => this._updateCameraImageSrcAtInterval(),
-        UPDATE_INTERVAL
-      );
-    }
-  }
-
-  private _stopUpdateCameraInterval(): void {
-    if (this._cameraUpdater) {
-      clearInterval(this._cameraUpdater);
-      this._cameraUpdater = undefined;
     }
   }
 
@@ -332,64 +277,6 @@ export class HuiImage extends LitElement {
     }
     await this.updateComplete;
     this._lastImageHeight = imgEl.offsetHeight;
-  }
-
-  private async _onVideoLoad(ev: Event): Promise<void> {
-    this._loadState = LoadState.Loaded;
-    const videoEl = ev.currentTarget as HaCameraStream;
-    await this.updateComplete;
-    this._lastImageHeight = videoEl.offsetHeight;
-  }
-
-  private async _updateCameraImageSrcAtInterval(): Promise<void> {
-    // If we hit the interval and it was still loading
-    // it means we timed out so we should show the error.
-    if (this._loadState === LoadState.Loading) {
-      this._onImageError();
-    }
-    return this._updateCameraImageSrc();
-  }
-
-  private async _updateCameraImageSrc(): Promise<void> {
-    if (!this.hass || !this.cameraImage) {
-      return;
-    }
-
-    const cameraState = this.hass.states[this.cameraImage] as
-      | CameraEntity
-      | undefined;
-
-    if (!cameraState) {
-      this._onImageError();
-      return;
-    }
-
-    const element_width = this.clientWidth || MAX_IMAGE_WIDTH;
-    let width = Math.ceil(element_width * devicePixelRatio);
-    let height: number;
-    // If the image has not rendered yet we have no height
-    if (!this._lastImageHeight) {
-      if (this._ratio && this._ratio.w > 0 && this._ratio.h > 0) {
-        height = Math.ceil(width * (this._ratio.h / this._ratio.w));
-      } else {
-        // If we don't have a ratio and we don't have a height
-        // we ask for 200% of what we need because the aspect
-        // ratio might result in a smaller image
-        width *= 2;
-        height = Math.ceil(width * ASPECT_RATIO_DEFAULT);
-      }
-    } else {
-      height = Math.ceil(this._lastImageHeight * devicePixelRatio);
-    }
-    this._cameraImageSrc = await fetchThumbnailUrlWithCache(
-      this.hass,
-      this.cameraImage,
-      width,
-      height
-    );
-    if (this._cameraImageSrc === undefined) {
-      this._onImageError();
-    }
   }
 
   static get styles(): CSSResultGroup {

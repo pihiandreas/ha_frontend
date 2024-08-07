@@ -5,30 +5,19 @@ import { LitElement, TemplateResult, css, html } from "lit";
 import { customElement, property, state } from "lit/decorators";
 import memoizeOne from "memoize-one";
 import { isComponentLoaded } from "../../../common/config/is_component_loaded";
-import { shouldHandleRequestSelectedEvent } from "../../../common/mwc/handle-request-selected-event";
 import "../../../components/ha-alert";
 import "../../../components/ha-bar";
 import "../../../components/ha-button-menu";
 import "../../../components/ha-card";
 import "../../../components/ha-check-list-item";
 import "../../../components/ha-metric";
-import { extractApiErrorMessage } from "../../../data/hassio/common";
-import {
-  HassioSupervisorInfo,
-  SupervisorOptions,
-  fetchHassioSupervisorInfo,
-  reloadSupervisor,
-  setSupervisorOption,
-} from "../../../data/hassio/supervisor";
 import {
   checkForEntityUpdates,
   filterUpdateEntitiesWithInstall,
 } from "../../../data/update";
-import { showAlertDialog } from "../../../dialogs/generic/show-dialog-box";
 import "../../../layouts/hass-subpage";
 import type { HomeAssistant } from "../../../types";
 import "../dashboard/ha-config-updates";
-import { showJoinBetaDialog } from "./updates/show-dialog-join-beta";
 
 @customElement("ha-config-section-updates")
 class HaConfigSectionUpdates extends LitElement {
@@ -37,8 +26,6 @@ class HaConfigSectionUpdates extends LitElement {
   @property({ type: Boolean }) public narrow = false;
 
   @state() private _showSkipped = false;
-
-  @state() private _supervisorInfo?: HassioSupervisorInfo;
 
   protected firstUpdated(changedProps) {
     super.firstUpdated(changedProps);
@@ -82,21 +69,6 @@ class HaConfigSectionUpdates extends LitElement {
             >
               ${this.hass.localize("ui.panel.config.updates.show_skipped")}
             </ha-check-list-item>
-            ${this._supervisorInfo
-              ? html`
-                  <li divider role="separator"></li>
-                  <mwc-list-item
-                    @request-selected=${this._toggleBeta}
-                    .disabled=${this._supervisorInfo.channel === "dev"}
-                  >
-                    ${this._supervisorInfo.channel === "stable"
-                      ? this.hass.localize("ui.panel.config.updates.join_beta")
-                      : this.hass.localize(
-                          "ui.panel.config.updates.leave_beta"
-                        )}
-                  </mwc-list-item>
-                `
-              : ""}
           </ha-button-menu>
         </div>
         <div class="content">
@@ -125,48 +97,12 @@ class HaConfigSectionUpdates extends LitElement {
     `;
   }
 
-  private async _refreshSupervisorInfo() {
-    this._supervisorInfo = await fetchHassioSupervisorInfo(this.hass);
-  }
-
   private _toggleSkipped(ev: CustomEvent<RequestSelectedDetail>): void {
     if (ev.detail.source !== "property") {
       return;
     }
 
     this._showSkipped = !this._showSkipped;
-  }
-
-  private async _toggleBeta(
-    ev: CustomEvent<RequestSelectedDetail>
-  ): Promise<void> {
-    if (!shouldHandleRequestSelectedEvent(ev)) {
-      return;
-    }
-
-    if (this._supervisorInfo!.channel === "stable") {
-      showJoinBetaDialog(this, {
-        join: async () => this._setChannel("beta"),
-      });
-    } else {
-      this._setChannel("stable");
-    }
-  }
-
-  private async _setChannel(
-    channel: SupervisorOptions["channel"]
-  ): Promise<void> {
-    try {
-      await setSupervisorOption(this.hass, {
-        channel,
-      });
-      await reloadSupervisor(this.hass);
-      await this._refreshSupervisorInfo();
-    } catch (err: any) {
-      showAlertDialog(this, {
-        text: extractApiErrorMessage(err),
-      });
-    }
   }
 
   private async _checkUpdates(): Promise<void> {

@@ -14,7 +14,6 @@ import "../../../components/ha-card";
 import "../../../components/ha-checkbox";
 import "../../../components/ha-network";
 import "../../../components/ha-settings-row";
-import { fetchNetworkInfo } from "../../../data/hassio/network";
 import {
   getNetworkConfig,
   NetworkConfig,
@@ -85,17 +84,6 @@ class ConfigNetwork extends LitElement {
     this._error = undefined;
     try {
       const coreNetwork = await getNetworkConfig(this.hass);
-      if (isComponentLoaded(this.hass, "hassio")) {
-        const supervisorNetwork = await fetchNetworkInfo(this.hass);
-        const interfaces = new Set(
-          supervisorNetwork.interfaces.map((int) => int.interface)
-        );
-        if (interfaces.size) {
-          coreNetwork.adapters = coreNetwork.adapters.filter((adapter) =>
-            interfaces.has(adapter.name)
-          );
-        }
-      }
       this._networkConfig = coreNetwork;
     } catch (err: any) {
       this._error = err.message || err;

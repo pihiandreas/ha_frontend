@@ -12,10 +12,6 @@ import "../../../components/ha-control-button-group";
 import "../../../components/ha-control-number-buttons";
 import { ClimateEntity, ClimateEntityFeature } from "../../../data/climate";
 import { UNAVAILABLE } from "../../../data/entity";
-import {
-  WaterHeaterEntity,
-  WaterHeaterEntityFeature,
-} from "../../../data/water_heater";
 import { HomeAssistant } from "../../../types";
 import { LovelaceCardFeature } from "../types";
 import { cardFeatureStyles } from "./common/card-feature-styles";
@@ -26,14 +22,9 @@ type Target = "value" | "low" | "high";
 export const supportsTargetTemperatureCardFeature = (stateObj: HassEntity) => {
   const domain = computeDomain(stateObj.entity_id);
   return (
-    (domain === "climate" &&
-      (supportsFeature(stateObj, ClimateEntityFeature.TARGET_TEMPERATURE) ||
-        supportsFeature(
-          stateObj,
-          ClimateEntityFeature.TARGET_TEMPERATURE_RANGE
-        ))) ||
-    (domain === "water_heater" &&
-      supportsFeature(stateObj, WaterHeaterEntityFeature.TARGET_TEMPERATURE))
+    domain === "climate" &&
+    (supportsFeature(stateObj, ClimateEntityFeature.TARGET_TEMPERATURE) ||
+      supportsFeature(stateObj, ClimateEntityFeature.TARGET_TEMPERATURE_RANGE))
   );
 };
 
@@ -44,9 +35,7 @@ class HuiTargetTemperatureCardFeature
 {
   @property({ attribute: false }) public hass?: HomeAssistant;
 
-  @property({ attribute: false }) public stateObj?:
-    | ClimateEntity
-    | WaterHeaterEntity;
+  @property({ attribute: false }) public stateObj?: ClimateEntity;
 
   @state() private _config?: TargetTemperatureCardFeatureConfig;
 
@@ -133,16 +122,8 @@ class HuiTargetTemperatureCardFeature
   private _supportsTarget() {
     const domain = computeStateDomain(this.stateObj!);
     return (
-      (domain === "climate" &&
-        supportsFeature(
-          this.stateObj!,
-          ClimateEntityFeature.TARGET_TEMPERATURE
-        )) ||
-      (domain === "water_heater" &&
-        supportsFeature(
-          this.stateObj!,
-          WaterHeaterEntityFeature.TARGET_TEMPERATURE
-        ))
+      domain === "climate" &&
+      supportsFeature(this.stateObj!, ClimateEntityFeature.TARGET_TEMPERATURE)
     );
   }
 

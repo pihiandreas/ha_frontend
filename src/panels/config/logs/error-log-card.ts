@@ -10,7 +10,6 @@ import {
   TemplateResult,
 } from "lit";
 import { customElement, property, state } from "lit/decorators";
-import { isComponentLoaded } from "../../../common/config/is_component_loaded";
 import "../../../components/ha-alert";
 import "../../../components/ha-ansi-to-html";
 import "../../../components/ha-card";
@@ -21,11 +20,6 @@ import "../../../components/ha-svg-icon";
 import { getSignedPath } from "../../../data/auth";
 
 import { fetchErrorLog, getErrorLogDownloadUrl } from "../../../data/error_log";
-import { extractApiErrorMessage } from "../../../data/hassio/common";
-import {
-  fetchHassioLogs,
-  getHassioLogDownloadUrl,
-} from "../../../data/hassio/supervisor";
 import { HomeAssistant } from "../../../types";
 import { debounce } from "../../../common/util/debounce";
 import { fileDownload } from "../../../util/file_download";
@@ -155,37 +149,8 @@ class ErrorLogCard extends LitElement {
 
   private async _refreshLogs(): Promise<void> {
     this._logHTML = this.hass.localize("ui.panel.config.logs.loading_log");
-    let log: string;
 
-    if (this.provider !== "core" && isComponentLoaded(this.hass, "hassio")) {
-      try {
-        log = await fetchHassioLogs(this.hass, this.provider);
-        if (this.filter) {
-          log = log
-            .split("\n")
-            .filter((entry) =>
-              entry.toLowerCase().includes(this.filter.toLowerCase())
-            )
-            .join("\n");
-        }
-        if (!log) {
-          this._logHTML = this.hass.localize("ui.panel.config.logs.no_errors");
-          return;
-        }
-        this._logHTML = html`<ha-ansi-to-html .content=${log}>
-        </ha-ansi-to-html>`;
-        this._isLogLoaded = true;
-        return;
-      } catch (err: any) {
-        this._error = this.hass.localize(
-          "ui.panel.config.logs.failed_get_logs",
-          { provider: this.provider, error: extractApiErrorMessage(err) }
-        );
-        return;
-      }
-    } else {
-      log = await fetchErrorLog(this.hass!);
-    }
+    const log: string = await fetchErrorLog(this.hass!);
 
     this._isLogLoaded = true;
 

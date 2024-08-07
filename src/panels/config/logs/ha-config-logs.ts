@@ -7,7 +7,6 @@ import "../../../components/ha-button-menu";
 import "../../../components/ha-button";
 import "../../../components/search-input";
 import { LogProvider } from "../../../data/error_log";
-import { fetchHassioAddonsInfo } from "../../../data/hassio/addon";
 import "../../../layouts/hass-subpage";
 import { haStyle } from "../../../resources/styles";
 import { HomeAssistant, Route } from "../../../types";
@@ -171,9 +170,6 @@ export class HaConfigLogs extends LitElement {
   }
 
   private async _init() {
-    if (isComponentLoaded(this.hass, "hassio")) {
-      await this._getInstalledAddons();
-    }
     const providerKey = extractSearchParam("provider");
     if (providerKey) {
       if (
@@ -197,23 +193,6 @@ export class HaConfigLogs extends LitElement {
           ),
         });
       }
-    }
-  }
-
-  private async _getInstalledAddons() {
-    try {
-      const addonsInfo = await fetchHassioAddonsInfo(this.hass);
-      this._logProviders = [
-        ...this._logProviders,
-        ...addonsInfo.addons
-          .filter((addon) => addon.version)
-          .map((addon) => ({
-            key: addon.slug,
-            name: addon.name,
-          })),
-      ];
-    } catch (err) {
-      // Ignore, nothing the user can do anyway
     }
   }
 

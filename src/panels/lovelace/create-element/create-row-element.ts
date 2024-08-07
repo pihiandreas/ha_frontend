@@ -1,5 +1,4 @@
 import "../entity-rows/hui-event-entity-row";
-import "../entity-rows/hui-media-player-entity-row";
 import "../entity-rows/hui-scene-entity-row";
 import "../entity-rows/hui-script-entity-row";
 import "../entity-rows/hui-sensor-entity-row";
@@ -49,7 +48,6 @@ const LAZY_LOAD_TYPES = {
   "time-entity": () => import("../entity-rows/hui-time-entity-row"),
   "timer-entity": () => import("../entity-rows/hui-timer-entity-row"),
   "update-entity": () => import("../entity-rows/hui-update-entity-row"),
-  "valve-entity": () => import("../entity-rows/hui-valve-entity-row"),
   conditional: () => import("../special-rows/hui-conditional-row"),
   "weather-entity": () => import("../entity-rows/hui-weather-entity-row"),
   divider: () => import("../special-rows/hui-divider-row"),
@@ -72,7 +70,6 @@ const DOMAIN_TO_ELEMENT_TYPE = {
   event: "event",
   fan: "toggle",
   group: "group",
-  humidifier: "humidifier",
   input_boolean: "toggle",
   input_button: "input-button",
   input_datetime: "input-datetime",
@@ -81,24 +78,19 @@ const DOMAIN_TO_ELEMENT_TYPE = {
   input_text: "input-text",
   light: "toggle",
   lock: "lock",
-  media_player: "media-player",
   number: "number",
   remote: "toggle",
   scene: "scene",
   script: "script",
   select: "select",
   sensor: "sensor",
-  siren: "toggle",
   switch: "toggle",
   text: "text",
   time: "time",
   timer: "timer",
   update: "update",
-  vacuum: "toggle",
-  valve: "valve",
   // Temporary. Once climate is rewritten,
   // water heater should get its own row.
-  water_heater: "climate",
   weather: "weather",
 };
 

@@ -1,6 +1,5 @@
 import { css, CSSResultGroup, html, LitElement, nothing } from "lit";
 import { customElement, property } from "lit/decorators";
-import "../../../components/ha-camera-stream";
 import { computeImageUrl, ImageEntity } from "../../../data/image";
 import type { HomeAssistant } from "../../../types";
 

@@ -8,15 +8,7 @@ import { blankBeforePercent } from "../../../common/translations/blank_before_pe
 import "../../../components/ha-card";
 import "../../../components/ha-icon-button";
 import "../../../components/ha-navigation-list";
-import { BackupContent, fetchBackupInfo } from "../../../data/backup";
-import { BOARD_NAMES, HardwareInfo } from "../../../data/hardware";
-import { fetchHassioBackups, HassioBackup } from "../../../data/hassio/backup";
-import {
-  fetchHassioHassOsInfo,
-  fetchHassioHostInfo,
-  HassioHassOSInfo,
-  HassioHostInfo,
-} from "../../../data/hassio/host";
+import { HardwareInfo } from "../../../data/hardware";
 import { showRestartDialog } from "../../../dialogs/restart/show-dialog-restart";
 import "../../../layouts/hass-subpage";
 import { haStyle } from "../../../resources/styles";
@@ -145,30 +137,14 @@ class HaConfigSystemNavigation extends LitElement {
 
     this._fetchNetworkStatus();
     const isHassioLoaded = isComponentLoaded(this.hass, "hassio");
-    this._fetchBackupInfo(isHassioLoaded);
-    this._fetchHardwareInfo(isHassioLoaded);
+    // this._fetchBackupInfo(isHassioLoaded);
+    this._fetchHardwareInfo();
     if (isHassioLoaded) {
       this._fetchStorageInfo();
     }
   }
 
-  private async _fetchBackupInfo(isHassioLoaded: boolean) {
-    const backups: BackupContent[] | HassioBackup[] = isHassioLoaded
-      ? await fetchHassioBackups(this.hass)
-      : isComponentLoaded(this.hass, "backup")
-        ? await fetchBackupInfo(this.hass).then(
-            (backupData) => backupData.backups
-          )
-        : [];
-
-    if (backups.length > 0) {
-      this._latestBackupDate = (backups as any[]).reduce((a, b) =>
-        a.date > b.date ? a : b
-      ).date;
-    }
-  }
-
-  private async _fetchHardwareInfo(isHassioLoaded: boolean) {
+  private async _fetchHardwareInfo() {
     if (isComponentLoaded(this.hass, "hardware")) {
       const hardwareInfo: HardwareInfo = await this.hass.callWS({
         type: "hardware/info",
@@ -176,20 +152,18 @@ class HaConfigSystemNavigation extends LitElement {
       this._boardName = hardwareInfo?.hardware.find(
         (hw) => hw.board !== null
       )?.name;
-    } else if (isHassioLoaded) {
-      const osData: HassioHassOSInfo = await fetchHassioHassOsInfo(this.hass);
-      if (osData.board) {
-        this._boardName = BOARD_NAMES[osData.board];
-      }
     }
   }
 
   private async _fetchStorageInfo() {
-    const hostInfo: HassioHostInfo = await fetchHassioHostInfo(this.hass);
+    // const hostInfo: HassioHostInfo = await fetchHassioHostInfo(this.hass);
     this._storageInfo = {
-      used: hostInfo.disk_used,
-      free: hostInfo.disk_free,
-      total: hostInfo.disk_total,
+      // used: hostInfo.disk_used,
+      // free: hostInfo.disk_free,
+      // total: hostInfo.disk_total,
+      used: 0,
+      free: 0,
+      total: 0,
     };
   }
 

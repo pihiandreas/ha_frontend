@@ -18,7 +18,6 @@ import {
   stateColorCss,
 } from "../../common/entity/state_color";
 import { iconColorCSS } from "../../common/style/icon_color_css";
-import { cameraUrlWithWidthHeight } from "../../data/camera";
 import { CLIMATE_HVAC_ACTION_TO_MODE } from "../../data/climate";
 import type { HomeAssistant } from "../../types";
 import "../ha-state-icon";
@@ -133,15 +132,10 @@ export class StateBadge extends LitElement {
           imageUrl = this.hass.hassUrl(imageUrl);
         }
         const domain = computeDomain(stateObj.entity_id);
-        if (domain === "camera") {
-          imageUrl = cameraUrlWithWidthHeight(imageUrl, 80, 80);
-        }
         backgroundImage = `url(${imageUrl})`;
         this.icon = false;
         if (domain === "update") {
           this.style.borderRadius = "0";
-        } else if (domain === "media_player") {
-          this.style.borderRadius = "8%";
         }
       } else if (this.color) {
         // Externally provided overriding color wins over state color
