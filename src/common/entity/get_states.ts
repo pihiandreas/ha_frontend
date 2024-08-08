@@ -19,14 +19,10 @@ export const FIXED_DOMAIN_STATES = {
   binary_sensor: ["on", "off"],
   button: [],
   calendar: ["on", "off"],
-  camera: ["idle", "recording", "streaming"],
   cover: ["closed", "closing", "open", "opening"],
-  device_tracker: ["home", "not_home"],
   fan: ["on", "off"],
-  humidifier: ["on", "off"],
   input_boolean: ["on", "off"],
   input_button: [],
-  lawn_mower: ["error", "paused", "mowing", "docked"],
   light: ["on", "off"],
   lock: [
     "jammed",
@@ -37,27 +33,15 @@ export const FIXED_DOMAIN_STATES = {
     "opening",
     "open",
   ],
-  media_player: [
-    "off",
-    "on",
-    "idle",
-    "playing",
-    "paused",
-    "standby",
-    "buffering",
-  ],
-  person: ["home", "not_home"],
   plant: ["ok", "problem"],
   remote: ["on", "off"],
   scene: [],
   schedule: ["on", "off"],
   script: ["on", "off"],
-  siren: ["on", "off"],
   sun: ["above_horizon", "below_horizon"],
   switch: ["on", "off"],
   timer: ["active", "idle", "paused"],
   update: ["on", "off"],
-  vacuum: ["cleaning", "docked", "error", "idle", "paused", "returning"],
   valve: ["closed", "closing", "open", "opening"],
   weather: [
     "clear-night",
@@ -146,41 +130,8 @@ const FIXED_DOMAIN_ATTRIBUTE_STATES = {
       "window",
     ],
   },
-  device_tracker: {
-    source_type: ["bluetooth", "bluetooth_le", "gps", "router"],
-  },
   fan: {
     direction: ["forward", "reverse"],
-  },
-  humidifier: {
-    device_class: ["humidifier", "dehumidifier"],
-    action: ["off", "idle", "humidifying", "drying"],
-  },
-  media_player: {
-    device_class: ["tv", "speaker", "receiver"],
-    media_content_type: [
-      "album",
-      "app",
-      "artist",
-      "channel",
-      "channels",
-      "composer",
-      "contibuting_artist",
-      "episode",
-      "game",
-      "genre",
-      "image",
-      "movie",
-      "music",
-      "playlist",
-      "podcast",
-      "season",
-      "track",
-      "tvshow",
-      "url",
-      "video",
-    ],
-    repeat: ["off", "one", "all"],
   },
   number: {
     device_class: ["temperature"],
@@ -230,9 +181,6 @@ const FIXED_DOMAIN_ATTRIBUTE_STATES = {
   update: {
     device_class: ["firmware"],
   },
-  water_heater: {
-    away_mode: ["on", "off"],
-  },
 };
 
 export const getStates = (
@@ -265,7 +213,6 @@ export const getStates = (
         result.push(...state.attributes.swing_modes);
       }
       break;
-    case "device_tracker":
     case "person":
       if (!attribute) {
         result.push("home", "not_home");

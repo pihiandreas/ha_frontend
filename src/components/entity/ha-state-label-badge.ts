@@ -30,8 +30,6 @@ import "../ha-state-icon";
 // Define the domains whose states have special truncated strings
 const TRUNCATED_DOMAINS = [
   "alarm_control_panel",
-  "device_tracker",
-  "person",
 ] as const satisfies ReadonlyArray<keyof typeof FIXED_DOMAIN_STATES>;
 
 type TruncatedDomain = (typeof TRUNCATED_DOMAINS)[number];
@@ -169,8 +167,6 @@ export class HaStateLabelBadge extends LitElement {
     switch (domain) {
       case "alarm_control_panel":
       case "binary_sensor":
-      case "device_tracker":
-      case "person":
       case "scene":
       case "sun":
       case "timer":
@@ -206,8 +202,6 @@ export class HaStateLabelBadge extends LitElement {
     switch (domain) {
       case "alarm_control_panel":
       case "binary_sensor":
-      case "device_tracker":
-      case "person":
       case "scene":
       case "sun":
         return true;
@@ -232,10 +226,6 @@ export class HaStateLabelBadge extends LitElement {
     const domainStateKey = getTruncatedKey(domain, entityState.state);
     if (domainStateKey) {
       return this.hass!.localize(`state_badge.${domainStateKey}`);
-    }
-    // Person and device tracker state can be zone name
-    if (domain === "person" || domain === "device_tracker") {
-      return entityState.state;
     }
     if (domain === "timer") {
       return secondsToDuration(_timerTimeRemaining);

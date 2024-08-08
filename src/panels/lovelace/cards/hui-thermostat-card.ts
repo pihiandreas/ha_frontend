@@ -250,6 +250,7 @@ export class HuiThermostatCard extends LitElement implements LovelaceCard {
         border-radius: 100%;
         color: var(--secondary-text-color);
         direction: var(--direction);
+        padding: 2px;
       }
 
       hui-card-features {

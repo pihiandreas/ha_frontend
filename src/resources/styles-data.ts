@@ -1,5 +1,7 @@
-export const DEFAULT_PRIMARY_COLOR = "#03a9f4" as const;
-export const DEFAULT_ACCENT_COLOR = "#ff9800" as const;
+// export const DEFAULT_PRIMARY_COLOR = "#03a9f4" as const;
+export const DEFAULT_PRIMARY_COLOR = "#316834" as const; // RAL 6001 Emerald
+// export const DEFAULT_ACCENT_COLOR = "#ff9800" as const;
+export const DEFAULT_ACCENT_COLOR = "#7D653F" as const; // RAL 1036 Pearl GOld
 
 export const darkStyles = {
   "primary-background-color": "#111111",
@@ -10,7 +12,7 @@ export const darkStyles = {
   "secondary-text-color": "#9b9b9b",
   "disabled-text-color": "#6f6f6f",
   "app-header-text-color": "#e1e1e1",
-  "app-header-background-color": "#101e24",
+  "app-header-background-color": "#316834",
   "switch-unchecked-button-color": "#999999",
   "switch-unchecked-track-color": "#9b9b9b",
   "divider-color": "rgba(225, 225, 225, .12)",
@@ -62,8 +64,8 @@ export const derivedStyles = {
     "var(--state-icon-unavailable-color, var(--disabled-text-color))",
   "sidebar-text-color": "var(--primary-text-color)",
   "sidebar-background-color": "var(--card-background-color)",
-  "sidebar-selected-text-color": "var(--primary-color)",
-  "sidebar-selected-icon-color": "var(--primary-color)",
+  "sidebar-selected-text-color": "#316834",
+  "sidebar-selected-icon-color": "#316834",
   "sidebar-icon-color": "rgba(var(--rgb-primary-text-color), 0.6)",
   "switch-checked-color": "var(--primary-color)",
   "switch-checked-button-color":
@@ -145,10 +147,6 @@ export const derivedStyles = {
   "mdc-select-disabled-ink-color": "var(--input-disabled-ink-color)",
   "mdc-select-dropdown-icon-color": "var(--input-dropdown-icon-color)",
   "mdc-select-disabled-dropdown-icon-color": "var(--input-disabled-ink-color)",
-  "ha-assist-chip-filled-container-color":
-    "rgba(var(--rgb-primary-text-color),0.15)",
-  "ha-assist-chip-active-container-color":
-    "rgba(var(--rgb-primary-color),0.15)",
   "chip-background-color": "rgba(var(--rgb-primary-text-color), 0.15)",
   // Vaadin
   "material-body-text-color": "var(--primary-text-color)",

@@ -17,7 +17,6 @@ const mainStyles = css`
   html {
     font-size: 14px;
     height: 100vh;
-
     /* text */
     --primary-text-color: #212121;
     --secondary-text-color: #727272;
@@ -28,7 +27,7 @@ const mainStyles = css`
     /* main interface colors */
     --primary-color: ${unsafeCSS(DEFAULT_PRIMARY_COLOR)};
     --dark-primary-color: #0288d1;
-    --light-primary-color: #b3e5fc;
+    --light-primary-color: #030303;
     --accent-color: ${unsafeCSS(DEFAULT_ACCENT_COLOR)};
     --divider-color: rgba(0, 0, 0, 0.12);
     --outline-color: rgba(0, 0, 0, 0.12);
@@ -50,6 +49,10 @@ const mainStyles = css`
 
     /* for header */
     --header-height: 56px;
+
+    /* for sidebar */
+    --sidebar-menu-button-background: rgba(0, 0, 0, 0.5);
+    --sidebar-selected-icon-color: rgba(0, 0, 0, 0.5);
 
     /* for label-badge */
     --label-badge-red: var(--error-color);

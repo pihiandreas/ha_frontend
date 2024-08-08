@@ -17,7 +17,6 @@ const STATE_COLORED_DOMAIN = new Set([
   "camera",
   "climate",
   "cover",
-  "device_tracker",
   "fan",
   "group",
   "humidifier",

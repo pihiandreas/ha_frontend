@@ -63,7 +63,8 @@ export class HuiIconElement extends LitElement implements LovelaceElement {
       ha-icon:focus {
         outline: none;
         background: var(--divider-color);
-        border-radius: 100%;
+        /* border-radius: 100%; */
+        border-radius: 25%;
       }
     `;
   }

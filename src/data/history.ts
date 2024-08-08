@@ -18,8 +18,6 @@ const NEED_ATTRIBUTE_DOMAINS = [
   "input_datetime",
   "thermostat",
   "water_heater",
-  "person",
-  "device_tracker",
 ];
 const LINE_ATTRIBUTES_TO_KEEP = [
   "temperature",

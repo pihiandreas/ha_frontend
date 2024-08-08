@@ -88,7 +88,7 @@ export class HaColorPicker extends LitElement {
       .circle-color {
         display: block;
         background-color: var(--circle-color);
-        border-radius: 10px;
+        border-radius: 8px;
         width: 20px;
         height: 20px;
       }

@@ -41,7 +41,7 @@ export class HuiCardFeatures extends LitElement {
         --feature-color: var(--state-icon-color);
         --feature-padding: 12px;
         --feature-height: 42px;
-        --feature-border-radius: 12px;
+        --feature-border-radius: 8px;
         --feature-button-spacing: 12px;
         position: relative;
         width: 100%;

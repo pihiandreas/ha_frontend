@@ -177,7 +177,7 @@ export class HuiUnusedEntities extends LitElement {
       }
       ha-card {
         --ha-card-box-shadow: none;
-        --ha-card-border-radius: 24px;
+        --ha-card-border-radius: 8px;
       }
       hui-entity-picker-table {
         flex-grow: 1;

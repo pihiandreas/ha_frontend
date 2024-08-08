@@ -1,5 +1,6 @@
 import "@material/mwc-button/mwc-button";
 import {
+  mdiAccount,
   mdiBell,
   mdiCalendar,
   mdiCellphoneCog,
@@ -382,7 +383,7 @@ class HaSidebar extends SubscribeMixin(LitElement) {
         ? html`<mwc-button outlined @click=${this._closeEditMode}>
             ${this.hass.localize("ui.sidebar.done")}
           </mwc-button>`
-        : html`<div class="title">Home Assistant</div>`}
+        : html`<div class="title">edupihi</div>`}
     </div>`;
   }
 
@@ -626,11 +627,12 @@ class HaSidebar extends SubscribeMixin(LitElement) {
   }
 
   private _renderUserItem() {
-    return html`<a
+    return html` <a
       class=${classMap({
         profile: true,
         // Mimick behavior that paper-listbox provides
         "iron-selected": this.hass.panelUrl === "profile",
+        "profile-container": true,
       })}
       href="/profile"
       data-panel="panel"
@@ -640,19 +642,51 @@ class HaSidebar extends SubscribeMixin(LitElement) {
       @mouseenter=${this._itemMouseEnter}
       @mouseleave=${this._itemMouseLeave}
     >
-      <paper-icon-item>
-        <ha-user-badge
-          slot="item-icon"
-          .user=${this.hass.user}
-          .hass=${this.hass}
-        ></ha-user-badge>
-
+      <paper-icon-item class="profile" role="option">
+        <ha-svg-icon slot="item-icon" .path=${mdiAccount}></ha-svg-icon>
         <span class="item-text">
           ${this.hass.user ? this.hass.user.name : ""}
         </span>
       </paper-icon-item>
     </a>`;
   }
+
+  // private _renderUserItem() {
+  //   return html`<a
+  //     class=${classMap({
+  //       profile: true,
+  //       // Mimick behavior that paper-listbox provides
+  //       "iron-selected": this.hass.panelUrl === "profile",
+  //     })}
+  //     href="/profile"
+  //     data-panel="panel"
+  //     tabindex="-1"
+  //     role="option"
+  //     aria-label=${this.hass.localize("panel.profile")}
+  //     @mouseenter=${this._itemMouseEnter}
+  //     @mouseleave=${this._itemMouseLeave}
+  //   >
+  //     <paper-icon-item class="configuration" role="option">
+  //       <ha-svg-icon slot="item-icon" .path=${mdiCog}></ha-svg-icon>
+  //       ${!this.alwaysExpand &&
+  //       (this._updatesCount > 0 || this._issuesCount > 0)
+  //         ? html`
+  //             <span class="configuration-badge" slot="item-icon">
+  //               ${this._updatesCount + this._issuesCount}
+  //             </span>
+  //           `
+  //         : ""}
+  //       <span class="item-text">${title}</span>
+  //       ${this.alwaysExpand && (this._updatesCount > 0 || this._issuesCount > 0)
+  //         ? html`
+  //             <span class="configuration-badge"
+  //               >${this._updatesCount + this._issuesCount}</span
+  //             >
+  //           `
+  //         : ""}
+  //     </paper-icon-item>
+  //   </a>`;
+  // }
 
   private _renderExternalConfiguration() {
     return html`${!this.hass.user?.is_admin &&
@@ -860,12 +894,19 @@ class HaSidebar extends SubscribeMixin(LitElement) {
           border-bottom: 1px solid transparent;
           white-space: nowrap;
           font-weight: 400;
-          color: var(--sidebar-menu-button-text-color, --primary-text-color);
+          /* color: var(--sidebar-menu-button-text-color, --primary-text-color); */
+          color: var(--app-header-text-color, white);
           border-bottom: 1px solid var(--divider-color);
-          background-color: var(
+          background: var(
+            --sidebar-menu-button-background-color,
+            rgba(49, 104, 52, 0.85)
+          );
+          /* background: radial-gradient(circle, rgba(125,101,63,0.85) 20%, rgba(49,104,52,0.85) 70%); */
+
+          /* background-color: var(
             --sidebar-menu-button-background-color,
             --primary-background-color
-          );
+          ); */
           font-size: 20px;
           align-items: center;
           padding-left: calc(4px + env(safe-area-inset-left));
@@ -876,7 +917,9 @@ class HaSidebar extends SubscribeMixin(LitElement) {
           width: calc(256px + env(safe-area-inset-left));
         }
         .menu ha-icon-button {
-          color: var(--sidebar-icon-color);
+          /* color: var(--sidebar-icon-color); */
+          --md-icon-button-icon-size: 36px;
+          padding-top: 12px;
         }
         .title {
           margin-left: 19px;
@@ -1014,7 +1057,8 @@ class HaSidebar extends SubscribeMixin(LitElement) {
           background-color: var(--divider-color);
         }
         .notifications-container,
-        .configuration-container {
+        .configuration-container,
+        .profile-container {
           display: flex;
           margin-left: env(safe-area-inset-left);
           margin-inline-start: env(safe-area-inset-left);
@@ -1024,24 +1068,26 @@ class HaSidebar extends SubscribeMixin(LitElement) {
           cursor: pointer;
         }
         .notifications .item-text,
-        .configuration .item-text {
+        .configuration .item-text,
+        .profile .item-text {
           flex: 1;
         }
-        .profile {
+
+        /* .profile {
           margin-left: env(safe-area-inset-left);
           margin-inline-start: env(safe-area-inset-left);
           margin-inline-end: initial;
-        }
-        .profile paper-icon-item {
+        } */
+        /* .profile paper-icon-item {
           padding-left: 4px;
           padding-inline-start: 4px;
           padding-inline-end: auto;
-        }
-        .profile .item-text {
+        } */
+        /* .profile .item-text {
           margin-left: 8px;
           margin-inline-start: 8px;
           margin-inline-end: initial;
-        }
+        } */
 
         .notification-badge,
         .configuration-badge {

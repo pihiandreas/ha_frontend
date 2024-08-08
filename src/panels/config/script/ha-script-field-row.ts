@@ -341,8 +341,8 @@ export default class HaScriptFieldRow extends LitElement {
         .disabled-bar {
           background: var(--divider-color, #e0e0e0);
           text-align: center;
-          border-top-right-radius: var(--ha-card-border-radius);
-          border-top-left-radius: var(--ha-card-border-radius);
+          border-top-right-radius: var(--ha-card-border-radius, 8px);
+          border-top-left-radius: var(--ha-card-border-radius, 8px);
         }
 
         mwc-list-item[disabled] {

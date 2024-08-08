@@ -124,7 +124,7 @@ export class HaDialog extends DialogBase {
         top: var(--dialog-surface-top);
         margin-top: var(--dialog-surface-margin-top);
         min-height: var(--mdc-dialog-min-height, auto);
-        border-radius: var(--ha-dialog-border-radius, 28px);
+        border-radius: var(--ha-dialog-border-radius, 8px);
         -webkit-backdrop-filter: var(--ha-dialog-surface-backdrop-filter, none);
         backdrop-filter: var(--ha-dialog-surface-backdrop-filter, none);
         background: var(

@@ -14,8 +14,8 @@ import {
   mdiShape,
   mdiViewDashboard,
 } from "@mdi/js";
-import "@polymer/paper-tabs/paper-tab";
-import "@polymer/paper-tabs/paper-tabs";
+// import "@polymer/paper-tabs/paper-tab";
+// import "@polymer/paper-tabs/paper-tabs";
 import {
   CSSResultGroup,
   LitElement,
@@ -939,7 +939,13 @@ class HUIRoot extends LitElement {
           -moz-user-select: none;
         }
         .header {
-          background-color: var(--app-header-background-color);
+          /* background-color: var(--app-header-background-color); */
+          background: rgba(125, 101, 63, 0.85);
+          background: radial-gradient(
+            circle,
+            rgba(125, 101, 63, 0.85) 20%,
+            rgba(49, 104, 52, 0.85) 70%
+          );
           color: var(--app-header-text-color, white);
           border-bottom: var(--app-header-border-bottom, none);
           position: fixed;
@@ -1013,7 +1019,8 @@ class HUIRoot extends LitElement {
           display: inline-flex;
         }
         .edit-icon {
-          color: var(--accent-color);
+          /* color: var(--accent-color); */
+          color: var(--app-header-edit-text-color, #fff);
           padding-left: 8px;
           padding-inline-start: 8px;
           vertical-align: middle;
