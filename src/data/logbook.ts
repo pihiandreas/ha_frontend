@@ -237,15 +237,6 @@ export const localizeStateMessage = (
           }
           break;
 
-        case "lock":
-          if (isOn) {
-            return localize(`${LOGBOOK_LOCALIZE_PATH}.was_unlocked`);
-          }
-          if (isOff) {
-            return localize(`${LOGBOOK_LOCALIZE_PATH}.was_locked`);
-          }
-          break;
-
         case "plug":
           if (isOn) {
             return localize(`${LOGBOOK_LOCALIZE_PATH}.was_plugged_in`);

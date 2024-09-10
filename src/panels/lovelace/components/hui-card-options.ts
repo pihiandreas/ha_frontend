@@ -239,7 +239,8 @@ export class HuiCardOptions extends LitElement {
           font-weight: 500;
           text-align: center;
           font-size: 14px;
-          background-color: var(--app-header-edit-background-color, #455a64);
+          /* background-color: var(--app-header-edit-background-color, #316834); */
+          background-color: hsl(from var(--app-header-edit-background-color, #316834) h s l / 50%)
           color: var(--app-header-edit-text-color, white);
         }
 

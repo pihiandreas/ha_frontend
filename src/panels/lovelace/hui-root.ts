@@ -966,7 +966,8 @@ class HUIRoot extends LitElement {
           );
         }
         .edit-mode .header {
-          background-color: var(--app-header-edit-background-color, #455a64);
+          /* background-color: var(--app-header-edit-background-color, #316834); */
+          background-color: hsl(from var(--app-header-edit-background-color, #316834) h s l / 50%)
           color: var(--app-header-edit-text-color, white);
         }
         .toolbar {
@@ -1012,7 +1013,8 @@ class HUIRoot extends LitElement {
           pointer-events: auto;
         }
         .edit-mode paper-tabs {
-          background-color: var(--app-header-edit-background-color, #455a64);
+          /* background-color: var(--app-header-edit-background-color, #316834); */
+          background-color: hsl(from var(--app-header-edit-background-color, #316834) h s l / 50%)
           color: var(--app-header-edit-text-color, #fff);
         }
         paper-tab.iron-selected .edit-icon {

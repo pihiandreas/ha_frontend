@@ -9,10 +9,6 @@ import { stringCompare } from "../../../common/string/compare";
 import { LocalizeFunc } from "../../../common/translations/localize";
 import type { AreaFilterValue } from "../../../components/ha-area-filter";
 import { areaCompare } from "../../../data/area_registry";
-import {
-  EnergyPreferences,
-  GridSourceTypeEnergyPreference,
-} from "../../../data/energy";
 import { domainToName } from "../../../data/integration";
 import { LovelaceCardConfig } from "../../../data/lovelace/config/card";
 import { LovelaceSectionConfig } from "../../../data/lovelace/config/section";
@@ -23,7 +19,6 @@ import { HELPER_DOMAINS } from "../../config/helpers/const";
 import {
   AlarmPanelCardConfig,
   EntitiesCardConfig,
-  HumidifierCardConfig,
   PictureCardConfig,
   PictureEntityCardConfig,
   ThermostatCardConfig,
@@ -174,29 +169,6 @@ export const computeCards = (
                 },
               ]
             : undefined,
-      };
-      cards.push(cardConfig);
-    } else if (domain === "humidifier") {
-      const cardConfig: HumidifierCardConfig = {
-        type: "humidifier",
-        entity: entityId,
-        features: [
-          {
-            type: "humidifier-toggle",
-          },
-        ],
-      };
-      cards.push(cardConfig);
-    } else if (domain === "media_player") {
-      const cardConfig = {
-        type: "media-control",
-        entity: entityId,
-      };
-      cards.push(cardConfig);
-    } else if (domain === "plant") {
-      const cardConfig = {
-        type: "plant-status",
-        entity: entityId,
       };
       cards.push(cardConfig);
     } else if (domain === "weather") {

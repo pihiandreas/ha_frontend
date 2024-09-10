@@ -228,11 +228,6 @@ export const getStates = (
         result.push(...state.attributes.preset_modes);
       }
       break;
-    case "humidifier":
-      if (attribute === "mode") {
-        result.push(...state.attributes.available_modes);
-      }
-      break;
     case "input_select":
     case "select":
       if (!attribute) {
@@ -249,13 +244,6 @@ export const getStates = (
         result.push(...state.attributes.supported_color_modes);
       }
       break;
-    case "media_player":
-      if (attribute === "sound_mode") {
-        result.push(...state.attributes.sound_mode_list);
-      } else if (attribute === "source") {
-        result.push(...state.attributes.source_list);
-      }
-      break;
     case "remote":
       if (attribute === "current_activity") {
         result.push(...state.attributes.activity_list);
@@ -264,16 +252,6 @@ export const getStates = (
     case "sensor":
       if (!attribute && state.attributes.device_class === "enum") {
         result.push(...state.attributes.options);
-      }
-      break;
-    case "vacuum":
-      if (attribute === "fan_speed") {
-        result.push(...state.attributes.fan_speed_list);
-      }
-      break;
-    case "water_heater":
-      if (!attribute || attribute === "operation_mode") {
-        result.push(...state.attributes.operation_list);
       }
       break;
   }

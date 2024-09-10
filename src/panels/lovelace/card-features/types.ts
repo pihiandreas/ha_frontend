@@ -1,6 +1,5 @@
 import { AlarmMode } from "../../../data/alarm_control_panel";
 import { HvacMode } from "../../../data/climate";
-import { OperationMode } from "../../../data/water_heater";
 
 export interface CoverOpenCloseCardFeatureConfig {
   type: "cover-open-close";
@@ -83,10 +82,6 @@ export interface NumericInputCardFeatureConfig {
   style?: "buttons" | "slider";
 }
 
-export interface TargetHumidityCardFeatureConfig {
-  type: "target-humidity";
-}
-
 export interface TargetTemperatureCardFeatureConfig {
   type: "target-temperature";
 }
@@ -95,41 +90,6 @@ export interface WaterHeaterOperationModesCardFeatureConfig {
   type: "water-heater-operation-modes";
   operation_modes?: OperationMode[];
 }
-
-export interface HumidifierModesCardFeatureConfig {
-  type: "humidifier-modes";
-  style?: "dropdown" | "icons";
-  modes?: string[];
-}
-
-export interface HumidifierToggleCardFeatureConfig {
-  type: "humidifier-toggle";
-}
-
-export const VACUUM_COMMANDS = [
-  "start_pause",
-  "stop",
-  "clean_spot",
-  "locate",
-  "return_home",
-] as const;
-
-export type VacuumCommand = (typeof VACUUM_COMMANDS)[number];
-
-export interface VacuumCommandsCardFeatureConfig {
-  type: "vacuum-commands";
-  commands?: VacuumCommand[];
-}
-
-export const LAWN_MOWER_COMMANDS = ["start_pause", "dock"] as const;
-
-export type LawnMowerCommand = (typeof LAWN_MOWER_COMMANDS)[number];
-
-export interface LawnMowerCommandsCardFeatureConfig {
-  type: "lawn-mower-commands";
-  commands?: LawnMowerCommand[];
-}
-
 export interface UpdateActionsCardFeatureConfig {
   type: "update-actions";
   backup?: "yes" | "no" | "ask";
@@ -147,9 +107,8 @@ export type LovelaceCardFeatureConfig =
   | CoverTiltCardFeatureConfig
   | FanPresetModesCardFeatureConfig
   | FanSpeedCardFeatureConfig
-  | HumidifierToggleCardFeatureConfig
-  | HumidifierModesCardFeatureConfig
-  | LawnMowerCommandsCardFeatureConfig
+  // | HumidifierToggleCardFeatureConfig
+  // | HumidifierModesCardFeatureConfig
   | LightBrightnessCardFeatureConfig
   | LightColorTempCardFeatureConfig
   | LockCommandsCardFeatureConfig
@@ -158,9 +117,7 @@ export type LovelaceCardFeatureConfig =
   | SelectOptionsCardFeatureConfig
   | TargetHumidityCardFeatureConfig
   | TargetTemperatureCardFeatureConfig
-  | UpdateActionsCardFeatureConfig
-  | VacuumCommandsCardFeatureConfig
-  | WaterHeaterOperationModesCardFeatureConfig;
+  | UpdateActionsCardFeatureConfig;
 
 export type LovelaceCardFeatureContext = {
   entity_id?: string;

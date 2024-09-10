@@ -146,7 +146,7 @@ class LovelaceFullConfigEditor extends LitElement {
           --code-mirror-height: 100%;
           --app-header-background-color: var(
             --app-header-edit-background-color,
-            #455a64
+            #316834
           );
           --app-header-text-color: var(--app-header-edit-text-color, #fff);
         }

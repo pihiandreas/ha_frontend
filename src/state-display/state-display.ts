@@ -40,11 +40,10 @@ export const DEFAULT_STATE_CONTENT_DOMAINS: Record<string, StateContent> = {
   climate: ["state", "current_temperature"],
   cover: ["state", "current_position"],
   fan: "percentage",
-  humidifier: ["state", "current_humidity"],
+  // humidifier: ["state", "current_humidity"],
   light: "brightness",
   timer: "remaining_time",
   update: "install_status",
-  valve: ["state", "current_position"],
 };
 
 @customElement("state-display")

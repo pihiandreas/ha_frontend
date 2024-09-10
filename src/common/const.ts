@@ -204,10 +204,7 @@ export const DOMAINS_WITH_CARD = [
   "input_select",
   "input_number",
   "input_text",
-  "humidifier",
-  "lawn_mower",
   "lock",
-  "media_player",
   "number",
   "scene",
   "script",
@@ -215,8 +212,6 @@ export const DOMAINS_WITH_CARD = [
   "timer",
   "text",
   "update",
-  "vacuum",
-  "water_heater",
 ];
 
 export const SENSOR_ENTITIES = [

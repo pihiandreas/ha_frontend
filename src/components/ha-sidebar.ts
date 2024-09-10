@@ -973,7 +973,10 @@ class HaSidebar extends SubscribeMixin(LitElement) {
         }
 
         paper-icon-item {
-          @apply --paper-font-common-base;
+          /* @apply --paper-font-common-base; */
+          font-family: "Cairo", "Noto", sans-serif;
+          -webkit-font-smoothing: antialiased;
+
           box-sizing: border-box;
           margin: 4px;
           padding-left: 12px;

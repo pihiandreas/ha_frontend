@@ -23,10 +23,12 @@ export const haStyle = css`
   }
 
   app-header div[sticky] {
+    @apply --paper-font-common-base;
     height: 48px;
   }
 
   app-toolbar [main-title] {
+    @apply --paper-font-common-base;
     margin-left: 20px;
     margin-inline-start: 20px;
     margin-inline-end: initial;
@@ -66,6 +68,7 @@ export const haStyle = css`
   }
 
   a {
+    @apply --paper-font-common-base;
     color: var(--primary-color);
   }
 

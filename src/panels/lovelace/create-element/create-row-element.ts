@@ -33,7 +33,7 @@ const LAZY_LOAD_TYPES = {
   "group-entity": () => import("../entity-rows/hui-group-entity-row"),
   "input-button-entity": () =>
     import("../entity-rows/hui-input-button-entity-row"),
-  "humidifier-entity": () => import("../entity-rows/hui-humidifier-entity-row"),
+  // "humidifier-entity": () => import("../entity-rows/hui-humidifier-entity-row"),
   "input-datetime-entity": () =>
     import("../entity-rows/hui-input-datetime-entity-row"),
   "input-number-entity": () =>
@@ -89,8 +89,6 @@ const DOMAIN_TO_ELEMENT_TYPE = {
   time: "time",
   timer: "timer",
   update: "update",
-  // Temporary. Once climate is rewritten,
-  // water heater should get its own row.
   weather: "weather",
 };
 

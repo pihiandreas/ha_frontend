@@ -16,7 +16,7 @@ import "../card-features/hui-lock-open-door-card-feature";
 import "../card-features/hui-numeric-input-card-feature";
 import "../card-features/hui-select-options-card-feature";
 import "../card-features/hui-target-temperature-card-feature";
-import "../card-features/hui-target-humidity-card-feature";
+// import "../card-features/hui-target-humidity-card-feature";
 import "../card-features/hui-update-actions-card-feature";
 
 import { LovelaceCardFeatureConfig } from "../card-features/types";
@@ -37,9 +37,8 @@ const TYPES: Set<LovelaceCardFeatureConfig["type"]> = new Set([
   "cover-tilt",
   "fan-preset-modes",
   "fan-speed",
-  "humidifier-modes",
-  "humidifier-toggle",
-  "lawn-mower-commands",
+  // "humidifier-modes",
+  // "humidifier-toggle",
   "light-brightness",
   "light-color-temp",
   "lock-commands",
@@ -49,8 +48,6 @@ const TYPES: Set<LovelaceCardFeatureConfig["type"]> = new Set([
   "target-humidity",
   "target-temperature",
   "update-actions",
-  "vacuum-commands",
-  "water-heater-operation-modes",
 ]);
 
 export const createCardFeatureElement = (config: LovelaceCardFeatureConfig) =>

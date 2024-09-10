@@ -36,7 +36,7 @@ import { supportsLockCommandsCardFeature } from "../../card-features/hui-lock-co
 import { supportsLockOpenDoorCardFeature } from "../../card-features/hui-lock-open-door-card-feature";
 import { supportsNumericInputCardFeature } from "../../card-features/hui-numeric-input-card-feature";
 import { supportsSelectOptionsCardFeature } from "../../card-features/hui-select-options-card-feature";
-import { supportsTargetHumidityCardFeature } from "../../card-features/hui-target-humidity-card-feature";
+// import { supportsTargetHumidityCardFeature } from "../../card-features/hui-target-humidity-card-feature";
 import { supportsTargetTemperatureCardFeature } from "../../card-features/hui-target-temperature-card-feature";
 import { supportsUpdateActionsCardFeature } from "../../card-features/hui-update-actions-card-feature";
 import { LovelaceCardFeatureConfig } from "../../card-features/types";
@@ -57,20 +57,17 @@ const UI_FEATURE_TYPES = [
   "cover-tilt",
   "fan-preset-modes",
   "fan-speed",
-  "humidifier-modes",
-  "humidifier-toggle",
-  "lawn-mower-commands",
+  // "humidifier-modes",
+  // "humidifier-toggle",
   "light-brightness",
   "light-color-temp",
   "lock-commands",
   "lock-open-door",
   "numeric-input",
   "select-options",
-  "target-humidity",
+  // "target-humidity",
   "target-temperature",
   "update-actions",
-  "vacuum-commands",
-  "water-heater-operation-modes",
 ] as const satisfies readonly FeatureType[];
 
 type UiFeatureTypes = (typeof UI_FEATURE_TYPES)[number];
@@ -82,13 +79,10 @@ const EDITABLES_FEATURE_TYPES = new Set<UiFeatureTypes>([
   "climate-preset-modes",
   "climate-swing-modes",
   "fan-preset-modes",
-  "humidifier-modes",
-  "lawn-mower-commands",
+  // "humidifier-modes",
   "numeric-input",
   "select-options",
   "update-actions",
-  "vacuum-commands",
-  "water-heater-operation-modes",
 ]);
 
 const SUPPORTS_FEATURE_TYPES: Record<
@@ -106,20 +100,17 @@ const SUPPORTS_FEATURE_TYPES: Record<
   "cover-tilt": supportsCoverTiltCardFeature,
   "fan-preset-modes": supportsFanPresetModesCardFeature,
   "fan-speed": supportsFanSpeedCardFeature,
-  "humidifier-modes": supportsHumidifierModesCardFeature,
-  "humidifier-toggle": supportsHumidifierToggleCardFeature,
-  "lawn-mower-commands": supportsLawnMowerCommandCardFeature,
+  // "humidifier-modes": supportsHumidifierModesCardFeature,
+  // "humidifier-toggle": supportsHumidifierToggleCardFeature,
   "light-brightness": supportsLightBrightnessCardFeature,
   "light-color-temp": supportsLightColorTempCardFeature,
   "lock-commands": supportsLockCommandsCardFeature,
   "lock-open-door": supportsLockOpenDoorCardFeature,
   "numeric-input": supportsNumericInputCardFeature,
   "select-options": supportsSelectOptionsCardFeature,
-  "target-humidity": supportsTargetHumidityCardFeature,
+  // "target-humidity": supportsTargetHumidityCardFeature,
   "target-temperature": supportsTargetTemperatureCardFeature,
   "update-actions": supportsUpdateActionsCardFeature,
-  "vacuum-commands": supportsVacuumCommandsCardFeature,
-  "water-heater-operation-modes": supportsWaterHeaterOperationModesCardFeature,
 };
 
 const customCardFeatures = getCustomCardFeatures();

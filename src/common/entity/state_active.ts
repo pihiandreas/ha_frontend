@@ -31,24 +31,22 @@ export function stateActive(stateObj: HassEntity, state?: string): boolean {
       return compareState !== "idle";
     case "cover":
       return compareState !== "closed";
-    case "lawn_mower":
-      return ["mowing", "error"].includes(compareState);
     case "lock":
       return compareState !== "locked";
-    case "media_player":
-      return compareState !== "standby";
-    case "vacuum":
-      return !["idle", "docked", "paused"].includes(compareState);
-    case "valve":
-      return compareState !== "closed";
-    case "plant":
-      return compareState === "problem";
+    // case "media_player":
+    //   return compareState !== "standby";
+    // case "vacuum":
+    //   return !["idle", "docked", "paused"].includes(compareState);
+    // case "valve":
+    //   return compareState !== "closed";
+    // case "plant":
+    //   return compareState === "problem";
     case "group":
       return ["on", "home", "open", "locked", "problem"].includes(compareState);
     case "timer":
       return compareState === "active";
-    case "camera":
-      return compareState === "streaming";
+    // case "camera":
+    //   return compareState === "streaming";
   }
 
   return true;

@@ -21,11 +21,8 @@ const STATE_COLORED_DOMAIN = new Set([
   "group",
   "humidifier",
   "input_boolean",
-  "lawn_mower",
   "light",
   "lock",
-  "media_player",
-  "person",
   "plant",
   "remote",
   "schedule",
@@ -35,9 +32,6 @@ const STATE_COLORED_DOMAIN = new Set([
   "switch",
   "timer",
   "update",
-  "vacuum",
-  "valve",
-  "water_heater",
 ]);
 
 export const stateColorCss = (stateObj: HassEntity, state?: string) => {

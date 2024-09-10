@@ -162,8 +162,6 @@ const mainStyles = css`
     --state-device_tracker-home-color: var(--green-color);
     --state-fan-active-color: var(--cyan-color);
     --state-humidifier-on-color: var(--blue-color);
-    --state-lawn_mower-error-color: var(--red-color);
-    --state-lawn_mower-mowing-color: var(--teal-color);
     --state-light-active-color: var(--amber-color);
     --state-lock-jammed-color: var(--red-color);
     --state-lock-locked-color: var(--green-color);
@@ -186,12 +184,6 @@ const mainStyles = css`
     --state-sensor-battery-high-color: var(--green-color);
     --state-sensor-battery-low-color: var(--red-color);
     --state-sensor-battery-medium-color: var(--orange-color);
-    --state-water_heater-eco-color: var(--green-color);
-    --state-water_heater-electric-color: var(--orange-color);
-    --state-water_heater-gas-color: var(--orange-color);
-    --state-water_heater-heat_pump-color: var(--orange-color);
-    --state-water_heater-high_demand-color: var(--deep-orange-color);
-    --state-water_heater-performance-color: var(--deep-orange-color);
 
     /* history colors */
     --history-unavailable-color: transparent;
@@ -365,7 +357,6 @@ const mainStyles = css`
 
     --paper-font-subhead: {
       @apply --paper-font-common-base;
-
       font-size: 16px;
       font-weight: 400;
       line-height: 24px;
